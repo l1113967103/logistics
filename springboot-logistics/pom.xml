@@ -138,4 +138,11 @@
 			<artifactId>spring-boot-starter-quartz</artifactId>
 		</dependency> -->
 	</dependencies>
+	<modules>
+		<module>tt-common</module>
+		<module>tt-manage</module>
+		<module>tt-web</module>
+		<module>tt-sso</module>
+		<module>tt-order</module>
+	</modules>
 </project>

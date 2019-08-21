@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: tt-sso
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: org.llf
+Build-Jdk: 1.8.0_60
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/springboot-logistics/tt-sso
+Created-By: Maven Integration for Eclipse
+
