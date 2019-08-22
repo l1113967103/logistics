@@ -77,7 +77,7 @@ var columns = [
 ];
 
 $(function(){
-	doGetObjects();
+	//doGetObjects();
 	$(".input-group-btn")
 	.on("click",".btn-delete",doDeleteObject)
 	.on("click",".btn-add,.btn-update",doLoadEditUI);
@@ -146,7 +146,7 @@ function doGetCheckedId(){
 function doGetObjects(){
 	//1.构建treeTable对象
 	var tableId="gridTreeTable";
-	var url="dept/doFindObjects.do";
+	var url="dept/doFindObjects";
 	var treeTable=
     new TreeTable(tableId, url, columns)
 	//2.初始化treeTable

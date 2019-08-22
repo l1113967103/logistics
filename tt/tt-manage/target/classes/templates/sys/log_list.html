@@ -56,7 +56,7 @@
     //$(document).ready(function(){})
     //$(function(){});
     $(function(){
-       var pageURL="doPageUI.do";
+       var pageURL="pageUI";
        //在pageId对应的元素位置,加载pageURL对应的资源
        $("#pageId").load(pageURL,function(){
          //当分页页面异步加载完成以后启动下一次异步加载
@@ -102,7 +102,7 @@
     //执行删除操作
     function doDeleteObjects(){
     	//1.url
-    	var url="log/doDeleteObjects.do"
+    	var url="log/doDeleteObjects"
     	//2.params (获取用户选择的id值)
     	var ids=doGetCheckedIds();
     	if(ids.length==0){
@@ -111,6 +111,7 @@
     	}
     	if(!confirm("您确定删除吗"))return;
     	var params={"ids":ids.toString()};//"67,68"
+    	alert("ids:"ids)
     	//3.send request
     	$.post(url,params,function(result){//JsonResult
     		if(result.state==1){
@@ -166,7 +167,7 @@
       $("#checkAll").prop("checked",false);
       //1.异步加载日志信息
       //1.1 url
-      var url="log/doFindPageObjects.do";
+      var url="log/doFindPageObjects";
       //1.2 params
       var pageCurrent=$("#pageId").data("pageCurrent");
       if(!pageCurrent)pageCurrent=1;
@@ -226,14 +227,3 @@
         return tds;
     }
 </script>
-
-
-
-
-
-
-
-
-
-
-
