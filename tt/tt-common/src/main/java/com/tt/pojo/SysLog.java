@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 public class SysLog implements Serializable{
 	private static final long serialVersionUID = -7456935549698229000L;
 	@TableId(type = IdType.AUTO)
-	private Integer logId;
+	private Integer id;
 	private String username;
 	private String operation;
 	/**执行的方法*/

@@ -50,7 +50,7 @@
 </div>
 <script type="text/javascript">
    $(function(){
-	   $("#pageId").load("doPageUI.do",function(){
+	   $("#pageId").load("doPageUI",function(){
 		   doGetObjects();
 		   
 	   });
@@ -172,7 +172,7 @@
 	   
 	   console.log(params);//pageCurrent=1
 	   //2.请求url
-	   var url="config/doFindPageObjects.do"
+	   var url="config/doFindPageObjects"
 	   //3.发送异步请求(ajax的get请求)
 	   $.getJSON(url,params,function(result){//JsonResult
 		   doHandleResponseResult(result)

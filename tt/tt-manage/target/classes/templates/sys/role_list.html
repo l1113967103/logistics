@@ -48,7 +48,7 @@
 </div>
 <script type="text/javascript">
    $(function(){
-	  $("#pageId").load("doPageUI.do",function(){
+	  $("#pageId").load("doPageUI",function(){
 		  doGetObjects();
 	  });
 	  $(".input-group-btn")
@@ -124,7 +124,7 @@
 	   var name=$("#searchNameId").val();
 	   if(name)params.name=name;
 	   //2.url
-	   var url="role/doFindPageObjects.do";
+	   var url="role/doFindPageObjects";
 	   //3.ajax request
 	   console.log(params);
 	   $.getJSON(url,params,function(result){

@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @TableName("sys_emps")
 public class SysEmp extends BaseEntity{
 	@TableId(type = IdType.AUTO)
-	private Integer EmpId;
+	private Integer id;
 	private String username;
 	private String password;
 	private String salt;

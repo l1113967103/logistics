@@ -10,52 +10,52 @@ import com.tt.pojo.SysRole;
 import com.tt.sys.service.SysRoleService;
 
 
-@RequestMapping("/role/")
+@RequestMapping("/role")
 @Controller
 public class SysRoleController {
 	@Autowired
 	private SysRoleService sysRoleService;
-	@RequestMapping("doRoleListUI")
+	@RequestMapping("/doRoleListUI")
 	public String doRoleListUI() {
 		return "sys/role_list";
 	}
-	@RequestMapping("doFindPageObjects")
+	@RequestMapping("/doFindPageObjects")
 	@ResponseBody
 	public JsonResult doFindPageObjects(String name,Integer pageCurrent){
 		return new JsonResult(sysRoleService.findObjects(name, pageCurrent));
 	}
 	/**删除角色信息*/
-	@RequestMapping("doDeleteObject")
+	@RequestMapping("/doDeleteObject")
 	@ResponseBody
 	public JsonResult doDeleteObject(Integer id){
 		sysRoleService.deleteObject(id);
 		return new JsonResult("delete Ok");
 	}
 
-	@RequestMapping("doRoleEditUI")
+	@RequestMapping("/doRoleEditUI")
 	public String doRoleEditUI(){
 		return "sys/role_edit";
 	}
 	/**添加角色信息*/
-	@RequestMapping("doSaveObject")
+	@RequestMapping("/doSaveObject")
 	@ResponseBody
 	public JsonResult doSaveObject(SysRole entity,Integer[] menuIds){
 		sysRoleService.saveObject(entity,menuIds);
 		return new JsonResult("save ok");    
 	}
-	@RequestMapping("doFindObjectById")
+	@RequestMapping("/doFindObjectById")
 	@ResponseBody
 	public JsonResult doFindObjectById(Integer id){
 		return new JsonResult(sysRoleService.findObjectById(id));
 	}
-	@RequestMapping("doUpdateObject")
+	@RequestMapping("/doUpdateObject")
 	@ResponseBody
 	public JsonResult doUpdateObject(SysRole entity,Integer[] menuIds){
 		sysRoleService.updateObject(entity, menuIds);
 		return new JsonResult("update ok");
 	}
 	/**id，name用于user*/
-	@RequestMapping("doFindRoles")
+	@RequestMapping("/doFindRoles")
 	@ResponseBody
 	public JsonResult doFindObjects(){
 		return new JsonResult(sysRoleService.findObjects());

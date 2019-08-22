@@ -14,8 +14,7 @@
 		select count(*)
 		<include refid="queryWhereId" />
 	</select>
-	<select id="findPageObjects"
-		resultType="SysRole">
+	<select id="findPageObjects" resultType="SysRole">
 		select *
 		<include refid="queryWhereId" />
 		order by createdTime desc
@@ -40,7 +39,7 @@
 	</insert>
 
 
-	<resultMap type="SysRoleMenuVo"
+	<resultMap type="com.tt.sys.vo.SysRoleMenuVo"
 		id="sysRoleMenuVo">
 		<!-- 尝试自己实现：思考讨论 -->
 		<!-- 自己补充实现 -->

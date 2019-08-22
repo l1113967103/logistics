@@ -8,42 +8,42 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tt.common.vo.JsonResult;
 import com.tt.pojo.SysMenu;
 import com.tt.sys.service.SysMenuService;
-@RequestMapping("/menu/")
+@RequestMapping("/menu")
 @Controller
 public class SysMenuController {
 	@Autowired
 	private SysMenuService sysMenuService;
-	@RequestMapping("doMenuListUI")
+	@RequestMapping("/doMenuListUI")
 	public String doMenuListUI() {
 		return "sys/menu_list";
 	}
-	@RequestMapping("doFindObjects")
+	@RequestMapping("/doFindObjects")
 	@ResponseBody
 	public JsonResult doFindObjects() {
 		return new JsonResult(sysMenuService.findObjects());
 	}
-	@RequestMapping("doDeleteObject")
+	@RequestMapping("/doDeleteObject")
 	@ResponseBody
 	public JsonResult doDeleteObject(Integer id){
 		sysMenuService.deleteObject(id);
 		return new JsonResult("delete OK");
 	}
-	@RequestMapping("doMenuEditUI")
+	@RequestMapping("/doMenuEditUI")
 	public String doMenuEditUI(){
 		return "sys/menu_edit";
 	}
-	@RequestMapping("doFindZtreeMenuNodes")
+	@RequestMapping("/doFindZtreeMenuNodes")
 	@ResponseBody
 	public JsonResult doFindZtreeMenuNodes(){
 		return new JsonResult(sysMenuService.findZtreeMenuNodes());
 	}
-	@RequestMapping("doSaveObject")
+	@RequestMapping("/doSaveObject")
 	@ResponseBody
 	public JsonResult doSaveObject(SysMenu entity) {
 		sysMenuService.saveObject(entity);
 		return new JsonResult("save ok");
 	}
-	@RequestMapping("doUpdateObject")
+	@RequestMapping("/doUpdateObject")
 	@ResponseBody
 	public JsonResult doUpdateObject(SysMenu entity){
 		sysMenuService.updateObject(entity);

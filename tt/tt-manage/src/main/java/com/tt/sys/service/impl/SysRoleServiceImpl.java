@@ -71,7 +71,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		int rows=sysRoleDao.insertObject(entity);
 //		if(rows>0)
 //			throw new ServiceException("测试错误");
-		sysRoleMenuDao.insertObjects(entity.getRoleId(),menuIds);
+		sysRoleMenuDao.insertObjects(entity.getId(),menuIds);
 		//3.返回结果
 		return rows;
 	}
@@ -92,7 +92,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		//1.合法性验证
 		if(entity==null)
 			throw new ServiceException("更新的对象不能为空");
-		if(entity.getRoleId()==null)
+		if(entity.getId()==null)
 			throw new ServiceException("id的值不能为空");
 		if(StringUtils.isEmpty(entity.getName()))
 			throw new ServiceException("角色名不能为空");
@@ -102,8 +102,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 		int rows=sysRoleDao.updateObject(entity);
 		if(rows==0)
 			throw new ServiceException("对象可能已经不存在");
-		sysRoleMenuDao.deleteObjectsByRoleId(entity.getRoleId());
-		sysRoleMenuDao.insertObjects(entity.getRoleId(),menuIds);
+		sysRoleMenuDao.deleteObjectsByRoleId(entity.getId());
+		sysRoleMenuDao.insertObjects(entity.getId(),menuIds);
 		//3.返回结果
 		return rows;
 	}

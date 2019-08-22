@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @TableName("sys_depts")
 public class SysDept extends BaseEntity{
 	@TableId(type = IdType.AUTO)
-	private Integer deptId;
+	private Integer id;
 	private String name;
 	private Integer parentId;
 	private Integer sort;

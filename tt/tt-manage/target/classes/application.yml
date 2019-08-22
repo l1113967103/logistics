@@ -20,7 +20,7 @@ spring:
 #SpringBoot整合Mybatis-plus
 mybatis-plus:
   #定义别名包 当程序映射时自动拼接
-  type-aliases-package: com.jt.pojo
+  type-aliases-package: com.tt.pojo
   #必须编辑映射文件
   mapper-locations: classpath:/mybatis/mappers/*.xml
   #开启驼峰映射

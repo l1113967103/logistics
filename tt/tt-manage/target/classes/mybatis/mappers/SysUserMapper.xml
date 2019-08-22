@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tt.sys.mapper.SysUserMapper">
 	<sql id="queryWhereId">
-		from sys_users
+		from sys_emps
 		<where>
 			<if test="username!=null and username!=''">
 				username like concat("%",#{username},"%")
@@ -30,7 +30,7 @@
 	</select>
 	<!-- 禁用和启用状态 -->
 	<update id="validById">
-		update sys_users
+		update sys_emps
 		set valid=#{valid},
 		modifiedUser=#{modifiedUser},
 		modifiedTime=now()
@@ -38,9 +38,9 @@
 	</update>
 	<!-- 添加用户信息 -->
 	<insert id="insertObject"
-		parameterType="SysUser" useGeneratedKeys="true"
+		parameterType="SysEmp" useGeneratedKeys="true"
 		keyProperty="id">
-		insert into sys_users
+		insert into sys_emps
 		(username,password,deptId,email,mobile,salt,valid,
 		createdTime,modifiedTime,createdUser,modifiedUser)
 		values
@@ -49,14 +49,14 @@
 	</insert>
 	<!-- 根据用户名查取用户信息shiro -->
 	<select id="findUserByUserName"
-		resultType="SysUser">
+		resultType="SysEmp">
 		select *
-		from sys_users
+		from sys_emps
 		where username=#{username}
 	</select>
 	<!-- 修改用户密码 -->
 	<update id="updatePassword">
-		update sys_users set password=#{newPwd} 
+		update sys_emps set password=#{newPwd} 
 		where password=#{oldPwd}
 	</update>
 </mapper>

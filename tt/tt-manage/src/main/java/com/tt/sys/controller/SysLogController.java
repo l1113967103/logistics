@@ -12,11 +12,11 @@ import com.tt.sys.service.SysLogService;
 
 
 @Controller
-@RequestMapping("/log/")//日志模块根路径
+@RequestMapping("/log")//日志模块根路径
 public class SysLogController {
 	  @Autowired
 	  private SysLogService sysLogService;
-	  @RequestMapping("doLogListUI")
+	  @RequestMapping("/doLogListUI")
 	  public String doLogListUI() {
 		  return "sys/log_list";
 	  }
@@ -26,7 +26,7 @@ public class SysLogController {
 	   * @param pageCurrent
 	   * @return
 	   */
-	  @RequestMapping("doFindPageObjects")
+	  @RequestMapping("/doFindPageObjects")
 	  @ResponseBody
 	  public JsonResult doFindPageObjects(
 			  String username,Integer pageCurrent) {
@@ -35,7 +35,7 @@ public class SysLogController {
 				  pageCurrent);
 		  return new JsonResult(pageObject);
 	  }
-	  @RequestMapping("doDeleteObjects")
+	  @RequestMapping("/doDeleteObjects")
 	  @ResponseBody
 	  public JsonResult doDeleteObjects(Integer... ids) {
 		  int rows = sysLogService.deleteObjects(ids);

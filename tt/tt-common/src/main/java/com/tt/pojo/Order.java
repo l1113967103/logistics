@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @TableName("order")
 public class Order extends BasePojo{
 	@TableId(type = IdType.AUTO)
-	private Integer orderId;
+	private Integer id;
     private Integer inputId;
     private Integer outId;
     private Integer userId;

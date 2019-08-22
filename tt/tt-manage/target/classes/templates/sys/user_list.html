@@ -47,7 +47,7 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function(){
-	   $("#pageId").load("doPageUI.do",function(){
+	   $("#pageId").load("doPageUI",function(){
 		   doGetObjects();
 	   });
 	   $(".input-group-btn")
@@ -139,7 +139,7 @@
    }
    //页面加载完成异步加载当前页数据
    function doGetObjects(){
-	   var url="user/doFindPageObjects.do";
+	   var url="user/doFindPageObjects";
 	   var pageCurrent=$("#pageId").data("pageCurrent");
 	   if(!pageCurrent)pageCurrent=1;
 	   var params={"pageCurrent":pageCurrent}

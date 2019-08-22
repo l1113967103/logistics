@@ -11,10 +11,10 @@ import lombok.experimental.Accessors;
 @TableName("sys_menus")
 public class SysMenu extends BaseEntity{
 	@TableId(type = IdType.AUTO)
-	private Integer menuId;
+	private Integer id;
 	/**菜单名称*/
 	private String name;
-	/**菜单url: log/doFindPageObjects.do*/
+	/**菜单url: log/doFindPageObjects
 	private String url;
 	/**菜单类型(两种:按钮,普通菜单)*/
 	private Integer type;

@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @TableName("sys_rsoles")
 public class SysRole extends BaseEntity{
 	@TableId(type = IdType.AUTO)
-	private Integer roleId;
+	private Integer id;
 	private String name;
 	private String note;
 	

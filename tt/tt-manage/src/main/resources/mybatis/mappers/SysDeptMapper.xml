@@ -39,7 +39,7 @@
     </select>
     
     <select id="findById"
-            resultType="com.db.sys.entity.SysDept">
+            resultType="SysDept">
          select *
          from sys_depts
          where id=#{deptId}
@@ -76,6 +76,3 @@
     </select>
     
 </mapper>
-
-
-
