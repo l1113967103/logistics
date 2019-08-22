@@ -14,7 +14,7 @@ public class SysMenu extends BaseEntity{
 	private Integer id;
 	/**菜单名称*/
 	private String name;
-	/**菜单url: log/doFindPageObjects
+	/**菜单url: log/doFindPageObjects*/
 	private String url;
 	/**菜单类型(两种:按钮,普通菜单)*/
 	private Integer type;

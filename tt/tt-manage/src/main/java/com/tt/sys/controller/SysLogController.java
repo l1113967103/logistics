@@ -16,8 +16,8 @@ import com.tt.sys.service.SysLogService;
 public class SysLogController {
 	  @Autowired
 	  private SysLogService sysLogService;
-	  @RequestMapping("/doLogListUI")
-	  public String doLogListUI() {
+	  @RequestMapping("doLogListUI")
+	  public String doLogListUI(){
 		  return "sys/log_list";
 	  }
 	  /**

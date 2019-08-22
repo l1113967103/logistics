@@ -60,8 +60,8 @@
 	 //假如是修改需要再向服务端提交一个id值
 	 if(rowData)data.id=rowData.id;
 	 //2.url
-	 var insertUrl="config/doSaveObject.do";
-	 var updateUrl="config/doUpdateObject.do";
+	 var insertUrl="config/doSaveObject";
+	 var updateUrl="config/doUpdateObject";
 	 var url=rowData?updateUrl:insertUrl;
 	 //3.异步提交数据
 	 $.post(url,data,function(result){

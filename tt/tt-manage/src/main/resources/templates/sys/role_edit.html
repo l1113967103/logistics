@@ -102,8 +102,8 @@
     	var data=$("#mainContentId").data("data");
     	if(data)params.id=data.id;
     	//2.url
-    	var insertUrl="role/doSaveObject.do";
-    	var updateUrl="role/doUpdateObject.do";
+    	var insertUrl="role/doSaveObject";
+    	var updateUrl="role/doUpdateObject";
     	var url=data?updateUrl:insertUrl;
     	//3.ajax request
     	$.post(url,params,function(result){
@@ -134,7 +134,7 @@
     }
     //页面加载完成时初始化zTree
     function doLoadSysMenus(){
-    	var url="menu/doFindZtreeMenuNodes.do"
+    	var url="menu/doFindZtreeMenuNodes"
     	$.getJSON(url,function(result){
     	 console.log(result);
     	 if(result.state==1){

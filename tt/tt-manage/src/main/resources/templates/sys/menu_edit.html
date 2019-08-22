@@ -125,7 +125,7 @@
   }
   //回到列表页面
   function doCancel(){
-	var url="menu/doMenuListUI.do";
+	var url="menu/doMenuListUI";
 	$("#mainContentId").load(url);  
   }
   //将表单数据发送到服务端
@@ -136,8 +136,8 @@
 	 var rowData=$("#mainContentId").data("rowData");
 	 if(rowData)params.id=rowData.id;
 	 //2.异步提交数据到服务端
-	 var insertUrl="menu/doSaveObject.do";
-	 var updateUrl="menu/doUpdateObject.do";
+	 var insertUrl="menu/doSaveObject";
+	 var updateUrl="menu/doUpdateObject";
 	 var url=rowData?updateUrl:insertUrl;
 	 
 	 $.post(url,params,function(result){
@@ -188,7 +188,7 @@
   //加载zTree菜单
   function doLoadZtreeNodes(){
 	 //1.url
-	 var url="menu/doFindZtreeMenuNodes.do";
+	 var url="menu/doFindZtreeMenuNodes";
 	 //2.request
 	 $.getJSON(url,function(result){
 		 console.log(result);

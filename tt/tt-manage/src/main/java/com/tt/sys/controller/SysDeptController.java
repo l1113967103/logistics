@@ -10,50 +10,50 @@ import com.tt.pojo.SysDept;
 import com.tt.sys.service.SysDeptService;
 
 @Controller
-@RequestMapping("/dept/")
+@RequestMapping("/dept")
 public class SysDeptController {
 	
 	@Autowired
 	private SysDeptService sysDeptService;
 	
-	@RequestMapping("doDeptListUI")
+	@RequestMapping("/doDeptListUI")
 	public String doDeptListUI(){
 		return "sys/dept_list";
 	}
-	@RequestMapping("doDeptEditUI")
+	@RequestMapping("/doDeptEditUI")
 	public String doDeptEditUI(){
 		return "sys/dept_edit";
 	}
 	
-	@RequestMapping("doUpdateObject")
+	@RequestMapping("/doUpdateObject")
 	@ResponseBody
 	public JsonResult doUpdateObject(SysDept entity){
 		sysDeptService.updateObject(entity);
 	    return new JsonResult("update ok");
 	}
 	
-	@RequestMapping("doSaveObject")
+	@RequestMapping("/doSaveObject")
 	@ResponseBody
 	public JsonResult doSaveObject(SysDept entity){
 		sysDeptService.saveObject(entity);
 		return new JsonResult("save ok");
 	}
 	
-	@RequestMapping("doFindZTreeNodes")
+	@RequestMapping("/doFindZTreeNodes")
 	@ResponseBody
 	public JsonResult doFindZTreeNodes(){
 		return new JsonResult(
 		sysDeptService.findZTreeNodes());
 	}
 	
-	@RequestMapping("doDeleteObject")
+	@RequestMapping("/doDeleteObject")
 	@ResponseBody
 	public JsonResult doDeleteObject(Integer id){
 		sysDeptService.deleteObject(id);
 		return new JsonResult("delete ok");
 	}
 	
-	@RequestMapping("doFindObjects")
+	@RequestMapping("/doFindObjects")
 	@ResponseBody
 	public JsonResult doFindObjects(){
 		return new JsonResult(sysDeptService.findObjects());

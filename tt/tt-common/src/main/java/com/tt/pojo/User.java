@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @TableName("user")
 public class User extends BasePojo{
 	@TableId(type = IdType.AUTO)
-	private Long id;	//主键自增
+	private Integer id;	//主键自增
 	private String username;
 	private String password;
 	private String phone;

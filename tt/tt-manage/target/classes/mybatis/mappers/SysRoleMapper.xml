@@ -17,7 +17,7 @@
 	<select id="findPageObjects" resultType="SysRole">
 		select *
 		<include refid="queryWhereId" />
-		order by createdTime desc
+		order by created_time desc
 		limit #{startIndex},#{pageSize}
 	</select>
 	<!-- 删除自身信息 -->
@@ -31,8 +31,8 @@
 		parameterType="SysRole" useGeneratedKeys="true"
 		keyProperty="id">
 		insert into sys_roles
-		(id,name,note,createdTime,modifiedTime,
-		createdUser,modifiedUser)
+		(id,name,note,created_time,modified_time,
+		created_user,modified_user)
 		values
 		(null,#{name},#{note},now(),now(),
 		#{createdUser},#{modifiedUser})
@@ -44,7 +44,7 @@
 		<!-- 尝试自己实现：思考讨论 -->
 		<!-- 自己补充实现 -->
 		<collection property="menuIds" column="id"
-			select="com.tt.sys.mapper.SysRoleMenuMapper.findMenuIdsByRoleId">
+			select="com.tt.sys.mapper.SysRoleMenuMapper.findMenuIdsByRoleIds">
 		</collection>
 	</resultMap>
 	<!-- 基于角色id查询角色信息 -->
@@ -67,9 +67,9 @@
 				note=#{note},
 			</if>
 			<if test="modifiedUser!=null and modifiedUser!=''">
-				modifiedUser=#{modifiedUser},
+				modified_user=#{modifiedUser},
 			</if>
-			modifiedTime=now()
+			modified_time=now()
 		</set>
 		where id=#{id}
 	</update>

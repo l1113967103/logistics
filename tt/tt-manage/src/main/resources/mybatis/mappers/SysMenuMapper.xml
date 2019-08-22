@@ -7,12 +7,12 @@
 			p on c.parentId=p.id -->
 		<!-- 方案2 -->
 		select c.*,(select name from sys_menus p where c.parent_id=p.id)
-		parentName
+		parent_name
 		from sys_menus c
 	</select>
 	<select id="getChildCount" resultType="int">
 		select count(*) from
-		sys_menus where parentId=#{id}
+		sys_menus where parent_id=#{id}
 	</select>
 	<delete id="deleteObject">
 		delete from sys_menus where id=#{id}
@@ -20,14 +20,14 @@
 	<!-- 基于SysMenuDao中方法定义菜单节点查询元素 -->
 	<select id="findZtreeMenuNodes"
 		resultType="com.tt.common.vo.Node">
-		select id,name,parentId
+		select id,name,parent_id
 		from sys_menus
 	</select>
 	<insert id="insertObject"
 		parameterType="SysMenu">
 		insert into sys_menus
-		(name,url,type,sort,note,parentId,permission,
-		createdTime,modifiedTime,createdUser,modifiedUser)
+		(name,url,type,sort,note,parent_id,permission,
+		created_time,modified_time,created_user,modified_user)
 		values
 		(#{name},#{url},#{type},#{sort},#{note},#{parentId},#{permission},
 		now(),now(),#{createdUser},#{modifiedUser})
@@ -38,10 +38,10 @@
 		type=#{type},
 		sort=#{sort},
 		url=#{url},
-		parentId=#{parentId},
+		parent_id=#{parentId},
 		permission=#{permission},
-		modifiedUser=#{modifiedUser},
-		modifiedTime=now()
+		modified_user=#{modifiedUser},
+		modified_time=now()
 		where id=#{id}
 	</update>
 	<select id="findPermissions" resultType="string">

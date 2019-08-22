@@ -77,7 +77,7 @@ var columns = [
 ];
 
 $(function(){
-	//doGetObjects();
+	doGetObjects();
 	$(".input-group-btn")
 	.on("click",".btn-delete",doDeleteObject)
 	.on("click",".btn-add,.btn-update",doLoadEditUI);
@@ -96,7 +96,7 @@ function doLoadEditUI(){
 		}
 		$("#mainContentId").data("rowData",rowData);
 	}
-	var url="dept/doDeptEditUI.do";
+	var url="dept/doDeptEditUI";
 	$("#mainContentId").load(url,function(){
 		$(".box-title").html(title);
 	})
@@ -113,7 +113,7 @@ function doGetCheckedItem(){
 
 function doDeleteObject(){
 	//1.url
-	var url="dept/doDeleteObject.do";
+	var url="dept/doDeleteObject";
 	//2.params
 	var id=doGetCheckedId();
 	if(!id){

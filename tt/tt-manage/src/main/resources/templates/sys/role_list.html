@@ -69,7 +69,7 @@
 		   title="修改角色"
 		   var id=$(this).parents("tr").data("id");
 		   var params={"id":id};
-		   var url="role/doFindObjectById.do";
+		   var url="role/doFindObjectById";
 		   $.getJSON(url,params,function(result){
 			   if(result.state==1){
 				  result.data.id=id;//在结果中动态追加id
@@ -82,7 +82,7 @@
 	   }
    }
    function doLoadPageUI(title){
-	   var url="role/doRoleEditUI.do"
+	   var url="role/doRoleEditUI"
 	   $("#mainContentId")
 	   .load(url,function(){
 		   $(".box-title").html(title);
@@ -96,7 +96,7 @@
 	   var id=$(this).parents("tr").data("id");
 	   var params={"id":id};
 	   //2.url
-	   var url="role/doDeleteObject.do"
+	   var url="role/doDeleteObject"
 	   //3.ajax request
 	   $.post(url,params,function(result){
 		   if(result.state==1){

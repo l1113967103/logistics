@@ -6,13 +6,13 @@
 	<delete id="deleteObjectsByRoleId" parameterType="int">
 		delete
 		from
-		sys_user_roles
+		sys_emp_roles
 		where role_id=#{roleId}
 	</delete>
 	<!-- 添加角色用户关联数据 -->
 	<insert id="insertObjects">
-		insert into sys_user_roles
-		(user_id,role_id)
+		insert into sys_emp_roles
+		(emp_id,role_id)
 		values
 		<foreach collection="roleIds" separator="," item="item">
 			(#{userId},#{item})
@@ -20,7 +20,7 @@
 	</insert>
 	<select id="findRoleIdsByUserId" resultType="int">
 		select role_id
-		from sys_user_roles
-		where user_id=#{userId}
+		from sys_emp_roles
+		where emp_id=#{userId}
 	</select>
 </mapper>

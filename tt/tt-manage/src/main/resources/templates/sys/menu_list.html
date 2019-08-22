@@ -137,7 +137,7 @@ function doLoadEditUI(){
 		$("#mainContentId").data("rowData",rowData);
 	}
 	//2.异步加载编辑页面
-	var url="menu/doMenuEditUI.do";
+	var url="menu/doMenuEditUI";
 	$("#mainContentId").load(url,function(){
 		$(".box-title").html(title);
 	});//假如"#mainContentId"这个位置有页面则replace
@@ -162,7 +162,7 @@ function doDeleteObject(){
    //2.定义参数
    var params={"id":id};
    //3.定义url
-   var url="menu/doDeleteObject.do"
+   var url="menu/doDeleteObject"
    //4.发送异步请求执行删除操作
    $.post(url,params,function(result){
 	   if(result.state==1){

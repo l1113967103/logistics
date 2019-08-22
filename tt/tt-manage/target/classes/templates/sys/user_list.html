@@ -78,7 +78,7 @@
 	   //1.params
 	   var params={"id":id};
 	   //2.url
-	   var url="user/doFindObjectById.do";
+	   var url="user/doFindObjectById";
 	   //3.ajax request
 	   $.getJSON(url,params,function(result){//JsonResult
 		   if(result.state==1){
@@ -94,7 +94,7 @@
 	 return $("tbody input[name='radioId']:checked").val();
    }
    function doLoadPage(title){
-	   var url="user/doUserEditUI.do"
+	   var url="user/doUserEditUI"
 	   $("#mainContentId").load(url,function(){
 		   $(".box-title").html(title);
 	   }) 
@@ -107,7 +107,7 @@
 	   var newValid=rowData.valid?0:1;
 	   var params={"id":rowData.id,"valid":newValid};
 	   //url
-	   var url="user/doValidById.do";
+	   var url="user/doValidById";
 	   //ajax request
        var btn=$(this);//获取点击的button对象
 	   $.post(url,params,function(result){

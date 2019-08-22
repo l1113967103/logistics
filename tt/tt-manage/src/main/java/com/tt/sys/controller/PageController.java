@@ -11,9 +11,9 @@ public class PageController {
 	}
 
 	@RequestMapping("doPageUI")
-	public String doPageUI() {
-		return "common/page";
-	}
+	public String doPageUI(){
+		 return "common/page";
+	 }
 
 	@RequestMapping("doLoginUI")
 	public String doLoginUI(){

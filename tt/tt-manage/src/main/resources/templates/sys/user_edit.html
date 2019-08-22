@@ -117,7 +117,7 @@
  }
  
  function doLoadZTreeNodes(){
-	  var url="dept/doFindZTreeNodes.do";
+	  var url="dept/doFindZTreeNodes";
 	  $("#treeLayer").css("display","block");
 	  $.getJSON(url,function(result){
 		  if(result.state==1){
@@ -129,7 +129,7 @@
  }
  function doCancel(){
 	$("#mainContentId").removeData("rowData");
-	$("#mainContentId").load("user/doUserListUI.do");
+	$("#mainContentId").load("user/doUserListUI");
  }
  function doSaveOrUpdate(){
 	 var rowData=$("#mainContentId").data("rowData");
@@ -137,8 +137,8 @@
 	 var params=doGetEditFormData();
 	 if(rowData)params.id=rowData.user.id;
 	 //2.发起异步请求
-	 var insertUrl="user/doSaveObject.do";
-	 var updateUrl="user/doUpdateObject.do";
+	 var insertUrl="user/doSaveObject";
+	 var updateUrl="user/doUpdateObject";
 	 var url=rowData?updateUrl:insertUrl;
 	 console.log(params);
 	 $.post(url,params,function(result){
@@ -172,7 +172,7 @@
 	 return params;
  }
  function doLoadRoles(){
-	 var url="role/doFindRoles.do"
+	 var url="role/doFindRoles"
 	 $.getJSON(url,function(result){
 		 if(result.state==1){
 		  doInitPageRoles(result.data);

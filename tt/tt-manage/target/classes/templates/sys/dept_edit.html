@@ -120,8 +120,8 @@
 		if (rowData)
 			params.id = rowData.id;
 		//2.定义url
-		var insertUrl = "dept/doSaveObject.do";
-		var updateUrl = "dept/doUpdateObject.do";
+		var insertUrl = "dept/doSaveObject";
+		var updateUrl = "dept/doUpdateObject";
 		var url = rowData ? updateUrl : insertUrl;
 		//3.异步提交数据
 		$.post(url, params, function(result) {
@@ -165,7 +165,7 @@
 	function doLoadZtreeNodes() {
 		//显示div
 		$("#treeLayer").css("display", "block");
-		var url = "dept/doFindZTreeNodes.do";
+		var url = "dept/doFindZTreeNodes";
 		//异步加载数据,并初始化数据
 		$.getJSON(url, function(result) {
 			if (result.state == 1) {

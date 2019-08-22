@@ -10,15 +10,15 @@
            name=#{name},
            sort=#{sort},
            note=#{note},
-           parentId=#{parentId},
-           modifiedUser=#{modifiedUser},
-           modifiedTime=now()
+           parent_id=#{parentId},
+           modified_user=#{modifiedUser},
+           modified_time=now()
         where id=#{id}
     </update>
     
     <insert id="insertObject" parameterType="SysDept">
          insert into sys_depts
-         (name,sort,note,parentId,createdTime,modifiedTime,createdUser,modifiedUser)
+         (name,sort,note,parent_id,created_time,modified_time,created_user,modified_user)
          values
          (#{name},#{sort},#{note},#{parentId},now(),now(),#{createdUser},#{modifiedUser})
     </insert>
@@ -26,15 +26,15 @@
 
     <select id="findZTreeNodes" 
         resultType="com.tt.common.vo.Node">
-        select id,name,parentId
+        select id,name,parent_id
         from sys_depts        
     </select>
 
     <select id="findObjectById" 
                 resultType="map">
-        select c.*,p.name parentName
+        select c.*,p.name parent_name
         from sys_depts c left join sys_depts p
-        on c.parentId=p.id
+        on c.parent_id=p.id
         where c.id=#{id}
     </select>
     
@@ -49,7 +49,7 @@
     <select id="getChildCount" resultType="int">
          select count(*)
          from sys_depts
-         where parentId=#{id}
+         where parent_id=#{id}
     </select>
     
     <delete id="deleteObject">
@@ -71,7 +71,7 @@
     <select id="findObjects" resultType="map">
          select c.*,(select name
                      from sys_depts p 
-                     where c.parentId=p.id)  parentName
+                     where c.parent_id=p.id)  parent_name
          from sys_depts c
     </select>
     

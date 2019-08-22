@@ -16,7 +16,7 @@
             resultType="SysLog">
            select *
            <include refid="queryWhereId"/>
-           order by createdTime desc
+           order by created_time desc
            limit #{startIndex},#{pageSize}
     </select>
    
@@ -38,7 +38,7 @@
     </delete>
     <insert id="insertObject">
        insert into sys_logs
-       (username,operation,method,params,time,ip,createdTime)
+       (username,operation,method,params,time,ip,created_time)
        values
        (#{username},#{operation},#{method},#{params},#{time},#{ip},#{createdTime})
     </insert>

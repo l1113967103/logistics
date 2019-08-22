@@ -21,7 +21,7 @@
 	<select id="findPageObjects" resultMap="sysUserMap">
 		select *
 		<include refid="queryWhereId" />
-		order by createdTime desc
+		order by created_time desc
 		limit #{startIndex},#{pageSize}
 	</select>
 	<select id="getRowCount" resultType="int">
@@ -32,8 +32,8 @@
 	<update id="validById">
 		update sys_emps
 		set valid=#{valid},
-		modifiedUser=#{modifiedUser},
-		modifiedTime=now()
+		modified_user=#{modifiedUser},
+		modified_time=now()
 		where id=#{id}
 	</update>
 	<!-- 添加用户信息 -->
@@ -41,8 +41,8 @@
 		parameterType="SysEmp" useGeneratedKeys="true"
 		keyProperty="id">
 		insert into sys_emps
-		(username,password,deptId,email,mobile,salt,valid,
-		createdTime,modifiedTime,createdUser,modifiedUser)
+		(username,password,dept_id,email,mobile,salt,valid,
+		created_time,modified_time,created_user,modified_user)
 		values
 		(#{username},#{password},#{deptId},#{email},#{mobile},#{salt},#{valid},
 		now(),now(),#{createdUser},#{modifiedUser})
