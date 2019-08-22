@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.tt.*.mapper")
+@MapperScan("com.tt.sys.mapper")
 public class SpringBootRun {
 
 	public static void main(String[] args) {

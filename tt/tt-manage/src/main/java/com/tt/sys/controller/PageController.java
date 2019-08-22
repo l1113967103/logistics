@@ -1,22 +1,22 @@
 package com.tt.sys.controller;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+@RequestMapping("/")
 @Controller
 public class PageController {
 
-	@RequestMapping("/indexUI")
-	public String indexUI() {
+	@RequestMapping("doIndexUI")
+	public String doIndexUI() {
 		return "starter";
 	}
-	@RequestMapping("/pageUI")
-	public String pageUI() {
+
+	@RequestMapping("doPageUI")
+	public String doPageUI() {
 		return "common/page";
 	}
 
-	@RequestMapping("/loginUI")
-	public String loginUI(){
+	@RequestMapping("doLoginUI")
+	public String doLoginUI(){
 		return "login";
 	}
 }

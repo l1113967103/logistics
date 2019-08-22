@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.sys.mapper.SysRoleMapper">
+	<sql id="queryWhereId">
+		from sys_roles
+		<where>
+			<if test="name!=null and name!=''">
+				name=#{name}
+			</if>
+		</where>
+	</sql>
+	<select id="getRowCount" resultType="int">
+		select count(*)
+		<include refid="queryWhereId" />
+	</select>
+	<select id="findPageObjects"
+		resultType="SysRole">
+		select *
+		<include refid="queryWhereId" />
+		order by createdTime desc
+		limit #{startIndex},#{pageSize}
+	</select>
+	<!-- 删除自身信息 -->
+	<delete id="deleteObject" parameterType="int">
+		delete
+		from sys_roles
+		where id=#{id}
+	</delete>
+	<!-- 新增角色信息 -->
+	<insert id="insertObject"
+		parameterType="SysRole" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into sys_roles
+		(id,name,note,createdTime,modifiedTime,
+		createdUser,modifiedUser)
+		values
+		(null,#{name},#{note},now(),now(),
+		#{createdUser},#{modifiedUser})
+	</insert>
+
+
+	<resultMap type="SysRoleMenuVo"
+		id="sysRoleMenuVo">
+		<!-- 尝试自己实现：思考讨论 -->
+		<!-- 自己补充实现 -->
+		<collection property="menuIds" column="id"
+			select="com.tt.sys.mapper.SysRoleMenuMapper.findMenuIdsByRoleId">
+		</collection>
+	</resultMap>
+	<!-- 基于角色id查询角色信息 -->
+	<select id="findObjectById" resultMap="sysRoleMenuVo">
+		select id,name,note
+		from
+		sys_roles
+		where id=#{id}
+	</select>
+	<!-- 修改自身信息 -->
+	<update id="updateObject"
+		parameterType="SysRole">
+		update sys_roles
+
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="note!=null and note!=''">
+				note=#{note},
+			</if>
+			<if test="modifiedUser!=null and modifiedUser!=''">
+				modifiedUser=#{modifiedUser},
+			</if>
+			modifiedTime=now()
+		</set>
+		where id=#{id}
+	</update>
+	<!-- 查询role的id，name用于user -->
+	<select id="findObjects" resultType="com.tt.common.vo.CheckBox">
+		select id,name
+		from sys_roles
+	</select>
+</mapper>

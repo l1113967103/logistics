@@ -19,12 +19,12 @@
 	</delete>
 	<!-- 基于SysMenuDao中方法定义菜单节点查询元素 -->
 	<select id="findZtreeMenuNodes"
-		resultType="com.db.common.vo.Node">
+		resultType="com.tt.common.vo.Node">
 		select id,name,parentId
 		from sys_menus
 	</select>
 	<insert id="insertObject"
-		parameterType="com.db.sys.entity.SysMenu">
+		parameterType="SysMenu">
 		insert into sys_menus
 		(name,url,type,sort,note,parentId,permission,
 		createdTime,modifiedTime,createdUser,modifiedUser)
@@ -33,7 +33,7 @@
 		now(),now(),#{createdUser},#{modifiedUser})
 	</insert>
 	<update id="updateObject"
-		parameterType="com.db.sys.entity.SysMenu">
+		parameterType="SysMenu">
 		update sys_menus set name=#{name},
 		type=#{type},
 		sort=#{sort},

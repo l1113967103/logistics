@@ -18,8 +18,8 @@ public class SpringbootDemoApplicationTests {
 	private SysLogMapper mapper;
 	@Test
 	public void contextLoads() {
-		List<SysLog> list = mapper.selectList(null);
-		System.out.println(list);
+//		List<SysLog> list = mapper.selectList(null);
+//		System.out.println(list);
 	}
 
 }
