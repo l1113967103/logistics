@@ -1,0 +1,8 @@
+server:
+  port: 9001    
+#spring:     #定义springmvc视图解析器
+  #mvc:
+    #view:
+      #prefix: /WEB-INF/
+      #suffix: .html
+spring:  resources:    static-locations: classpath:/templates/  

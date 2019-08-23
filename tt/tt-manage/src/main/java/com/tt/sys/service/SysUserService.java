@@ -1,29 +1,51 @@
 package com.tt.sys.service;
+import java.util.Map;
 
 import com.tt.pojo.SysEmp;
 import com.tt.sys.vo.SysUserDeptVo;
-
-public interface SysUserService extends PageService<SysUserDeptVo>{
+public interface SysUserService 
+     extends PageService<SysUserDeptVo>{
 	/**
-	 * 	用户的禁用与启用
-	 * @param id
-	 * @param valid
-	 * @param modifiedUser
+	 * 修改密码
+	 * @param password 原密码
+	 * @param newPassword 新密码(还没加密)
+	 * @param cfgPassword 确认密码
 	 * @return
 	 */
-	public int validById(Integer id,Integer valid,String modifiedUser);
-	/**
-	 * 	添加用户数据
-	 * @param entity
-	 * @param roleIds
-	 * @return
-	 */
-	int saveObject(SysEmp entity, Integer[] roleIds);
-	/**
-	 * 	修改用户密码
-	 * @param oldPwd	旧密码
-	 * @param newPwd	新密码
-	 * @return
-	 */
-	int updatePassword(String oldPwd,String newPwd1,String newPwd2);
+	int updatePassword(String password,String newPassword,String cfgPassword);
+	
+	 /**
+	  * 基于用户id查询用户以及用户关联的数据
+	  * @param id
+	  * @return
+	  */
+	 Map<String,Object> findObjectById(Integer id);
+	
+	 
+	 /**
+	  * 更新用户以及用户对应的角色信息
+	  * @param entity
+	  * @param roleIds
+	  * @return
+	  */
+	 int updateObject(SysEmp entity,Integer[]roleIds);
+	 
+	 /**
+	  * 保存用户以及用户对应的角色信息
+	  * @param entity
+	  * @param roleIds
+	  * @return
+	  */
+	 int saveObject(SysEmp entity,Integer[]roleIds);
+	
+	 /**
+	  * 禁用或启用用户状态
+	  * @param id
+	  * @param valid
+	  * @param modifiedUser
+	  * @return
+	  */
+	 int validById(Integer id,Integer valid,String modifiedUser);
+	 
+	
 }

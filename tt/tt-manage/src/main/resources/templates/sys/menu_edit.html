@@ -72,12 +72,11 @@
 			<a class="layui-layer-btn1 btn-cancel">取消</a>
 	     </div>
       </div>
-      
   </div>
   <script type="text/javascript" src="bower_components/ztree/jquery.ztree.all.min.js"></script>
   <script type="text/javascript" src="bower_components/layer/layer.js">
   </script>
- <script type="text/javascript">
+  <script type="text/javascript">
   var zTree; //zTree是第三方扩展的一个Jquery插件
   //初始化zTree时会用到
   var setting = {
@@ -121,7 +120,6 @@
 	$("#urlId").val(rowData.url);  
 	$("#parentId").val(rowData.parentName);  
 	$("#parentId").data("parentId",rowData.parentId);
-	
   }
   //回到列表页面
   function doCancel(){
@@ -130,7 +128,7 @@
   }
   //将表单数据发送到服务端
   function doSaveOrUpdate(){
-	  debugger
+	  //debugger
 	 //1.获取表单中用户输入数据
 	 var params=doGetEditFormData();
 	 var rowData=$("#mainContentId").data("rowData");

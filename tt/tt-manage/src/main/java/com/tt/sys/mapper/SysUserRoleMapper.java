@@ -6,23 +6,26 @@ import org.apache.ibatis.annotations.Param;
 
 public interface SysUserRoleMapper {
 	/**
-	 * 	删除角色关联的用户
-	 * @param roleId
-	 * @return
-	 */
-	int deleteObjectsByRoleId(Integer roleId);
-	/**
-	 * 	添加用户角色关系数据
-	 * @param userId
-	 * @param roleIds
-	 * @return
-	 */
-	int insertObjects(@Param("userId")Integer userId,@Param("roleIds")Integer[]roleIds);
-	/**
-	 * 	基于用户id查找角色id信息
+	 * 基于用户id获取用户对应的角色信息
 	 * @param id
 	 * @return
 	 */
 	List<Integer> findRoleIdsByUserId(Integer id);
 	
+	int insertObjects(
+			@Param("userId")Integer userId,
+			@Param("roleIds")Integer[] roleIds);
+
+	/**
+	 * 基于用户id删除角色和用户关系数据
+	 * @param id
+	 * @return
+	 */
+	int deleteObjectsByUserId(Integer userId);
+	/**
+	 * 基于角色id删除角色和用户关系数据
+	 * @param id
+	 * @return
+	 */
+	int deleteObjectsByRoleId(Integer roleId);
 }

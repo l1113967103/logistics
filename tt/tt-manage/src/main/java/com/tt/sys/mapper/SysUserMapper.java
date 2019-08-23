@@ -1,56 +1,54 @@
 package com.tt.sys.mapper;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.tt.pojo.SysEmp;
 import com.tt.sys.vo.SysUserDeptVo;
-
-public interface SysUserMapper extends PageMapper<SysUserDeptVo>{
+public interface SysUserMapper {
 	/**
-	 * 	查询所有用户分页信息
-	 * @param username
-	 * @param startIndex
-	 * @param pageSize
+	 * 基于用户id修改用户的密码
+	 * @param password 新的密码
+	 * @param salt 密码加密时使用的盐值
+	 * @param id 用户id
 	 * @return
 	 */
-//	List<SysUserDeptVo> findPageObjects(@Param("username") String username,@Param("startIndex")Integer startIndex,@Param("pageSize")Integer pageSize);
+	int updatePassword(
+			@Param("password")String password,
+			@Param("salt")String salt,
+			@Param("id")Integer id);
 	/**
-	 * 	查询所有用户个数
-	 * @param username
-	 * @return
-	 */
-//	int getRowCount(@Param("username")String username);
-	/**
-	 * 	禁用和启用状态
-	 * @param id
-	 * @param valid
-	 * @param modifiedUser
-	 * @return
-	 */
-	int validById(@Param("id")Integer id,@Param("valid")Integer valid,@Param("modifiedUser")String modifiedUser);
-	/**
-	 * 	存储用户数据
-	 * @param sysUser
-	 * @return
-	 */
-	int insertObject(SysEmp entity);
-	/**
-	 * 	根据id查询
-	 * @param id
-	 * @return
-	 */
-	SysUserDeptVo findObjectById(Integer id);
-	/**
-	 * 	通过用户名查取用户信息
+	 * 基于用户名查找用户信息
 	 * @param username
 	 * @return
 	 */
 	SysEmp findUserByUserName(String username);
 	/**
-	 * 	修改用户密码
-	 * @param oldPwd	旧密码
-	 * @param newPwd	新密码
+	 * 基于id查询用户对应的相关信息
+	 * @param id
 	 * @return
 	 */
-	int updatePassword(String oldPwd,String newPwd);
+	SysUserDeptVo findObjectById(Integer id);
+	
+	int updateObject(SysEmp entity);
+	
+	int insertObject(SysEmp entity);
+	
+	/**
+	 * 禁用或启用用户信息
+	 * @param id
+	 * @param valid 状态值
+	 * @param modifiedUser 修改用户
+	 * @return
+	 */
+	int validById(
+			@Param("id")Integer id,
+			@Param("valid")Integer valid,
+			@Param("modifiedUser")String modifiedUser);
+	
+	int getRowCount(@Param("username")String username);
+	List<SysUserDeptVo> findPageObjects(
+			@Param("username")String username,
+			@Param("startIndex")Integer startIndex,
+			@Param("pageSize")Integer pageSize);
 }

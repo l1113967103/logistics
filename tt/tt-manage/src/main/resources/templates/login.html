@@ -25,7 +25,7 @@
 
   <!-- Google Font -->
 </head>
-<body class="hold-transition login-page" style="background: url(dist/img/bg.jpg);background-size: 100% 100%;">
+<body class="hold-transition login-page" style="background: url(dist/img/bg4.jpg);background-size: 100% 100%;">
 <div class="login-box">
   <div class="login-logo">
     <a href="#"><b>丅丄</b></a>
@@ -84,7 +84,7 @@
 		 username:$("#usernameId").val(),
 		 password:$("#passwordId").val()
 	  }
-	  var url="user/doLogin.do";
+	  var url="user/doLogin";
 	  $.post(url,params,function(result){
 		  if(result.state==1){
 			//跳转到indexUI对应的页面

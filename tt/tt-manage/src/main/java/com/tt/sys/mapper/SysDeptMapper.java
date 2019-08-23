@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.tt.common.vo.Node;
 import com.tt.pojo.SysDept;
-
 public interface SysDeptMapper {
 	int updateObject(SysDept entity);
 	int insertObject(SysDept entity);

@@ -5,21 +5,33 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tt.annotation.RequiredLog;
 import com.tt.common.vo.PageObject;
 import com.tt.exception.ServiceException;
 import com.tt.pojo.SysLog;
 import com.tt.sys.mapper.SysLogMapper;
 import com.tt.sys.service.SysLogService;
 
-
 @Service
 public class SysLogServiceImpl implements SysLogService {
 	@Autowired
 	private SysLogMapper sysLogDao;
+	
+	@RequiresPermissions("sys:log:delete")
 	@Override
-	public PageObject<SysLog> findPageObjects(String username, Integer pageCurrent) {
-		System.out.println("目标方法，日志实现类");
+	public int deleteObjects(Integer... ids) {
+		//1.参数校验
+		if(ids==null||ids.length==0)
+		throw new IllegalArgumentException("参数无效");
+		//2.执行删除操作
+		int rows=sysLogDao.deleteObjects(ids);
+		if(rows==0)
+		throw new ServiceException("记录可能已经不存在");
+		return rows;
+	}
+	
+	@Override
+	public PageObject<SysLog> findPageObjects(
+		String username, Integer pageCurrent) {
 		//1.判定pageCurrent参数合法性
 		if(pageCurrent==null||pageCurrent<1) 
 		throw new IllegalArgumentException("当前页码值不正确");
@@ -46,19 +58,6 @@ public class SysLogServiceImpl implements SysLogService {
 		int pageCount=(rowCount-1)/pageSize+1;
 		po.setPageCount(pageCount);
 		return po;
-	}
-	@RequiresPermissions("sys:log:delete")
-	@RequiredLog("禁用启用")
-	@Override
-	public int deleteObjects(Integer... ids) {
-		//1.参数校验
-		if(ids==null||ids.length==0)
-			throw new IllegalArgumentException("参数无效");
-		//2.执行删除操作
-		int rows = sysLogDao.deleteObjects(ids);
-		if(rows==0)
-			throw new ServiceException("记录可能已经不存在");
-		return rows;
 	}
 
 }

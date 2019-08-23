@@ -7,15 +7,27 @@ import com.tt.common.vo.Node;
 import com.tt.pojo.SysMenu;
 
 public interface SysMenuService {
-	/**查询所有菜单信息*/
-	List<Map<String,Object>> findObjects();
-	/**删除菜单信息*/
-	int deleteObject(Integer id);
-	/**查询id，name，narentId生成ztree*/
-	public List<Node> findZtreeMenuNodes();
-	/**新增菜单信息*/
-	int saveObject(SysMenu entity);
-	/**更新菜单信息*/
+
+	/**
+	 * 保存菜单信息到数据库
+	 * @param entity
+	 * @return
+	 */
 	int updateObject(SysMenu entity);
+	/**
+	 * 保存菜单信息到数据库
+	 * @param entity
+	 * @return
+	 */
+	int saveObject(SysMenu entity);
+	
+	List<Node> findZtreeMenuNodes();
+	List<Map<String,Object>> findObjects();
+	/**
+	 * 基于菜单id删除菜单元素
+	 * @param id
+	 * @return
+	 */
+	int deleteObject(Integer id);
 	
 }

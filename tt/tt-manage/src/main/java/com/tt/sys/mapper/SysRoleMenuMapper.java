@@ -4,30 +4,39 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * 此dao基于sys_role_menus关系表进行操作
+ * @author Administrator
+ */
 public interface SysRoleMenuMapper {
+	
 	/**
-	 * 	
-	 * @param id
+	 * 基于多个角色id获取对应的多个菜单id?
+	 * 为什么时候多个角色呢?因为一个用户可以有多个角色
+	 * @param roleIds
 	 * @return
 	 */
-	int deleteObjectsByMenuId(Integer id);
+	List<Integer> findMenuIdsByRoleIds(
+			@Param("roleIds")Integer[] roleIds);
+	
 	/**
-	 * 	通过roleId 删除角色关联菜单
-	 * @param roleId
-	 * @return
-	 */
-	int deleteObjectsByRoleId(Integer roleId);
-	/**
-	 * 	新增角色信息关联的菜单
+	 * 保存角色和菜单的关系数据
 	 * @param roleId
 	 * @param menuIds
 	 * @return
 	 */
-	int insertObjects(@Param("roleId")Integer roleId,@Param("menuIds")Integer[] menuIds);
+	int insertObjects(@Param("roleId")Integer roleId,
+			          @Param("menuIds")Integer[] menuIds);
 	/**
-	 * 	基于用户id查找菜单id信息
+	 * 基于角色id删除角色和菜单关系数据
 	 * @param id
 	 * @return
 	 */
-	List<Integer> findMenuIdsByRoleIds(@Param("roleIds")Integer[] roleIds);
+	int deleteObjectsByRoleId(Integer roleId);
+     /**
+      * 基于菜单id删除角色和菜单的关系数据.
+      * @param menuId
+      * @return
+      */
+	int deleteObjectsByMenuId(Integer menuId);
 }

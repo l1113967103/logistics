@@ -70,7 +70,7 @@
 	   //说明:采用on方法注册事件,允许on方法内部的元素暂时不存在
    });
    function doShowEditDialog(){
-	   var url="config/doConfigEditUI.do";
+	   var url="config/doConfigEditUI";
 	   
 	   var title;
 	   if($(this).hasClass("btn-add")){
@@ -103,7 +103,7 @@
 		  return;
 	  }
 	  //3.异步提交要删除的对象id值,并处理响应结果
-      var url="config/doDeleteObjects.do";
+      var url="config/doDeleteObjects";
       var params={ids:array.toString()}//1,2,3,4,5
 	  $.post(url,params,function(result){
 		  if(result.state==1){

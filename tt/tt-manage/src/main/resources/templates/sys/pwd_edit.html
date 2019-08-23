@@ -37,7 +37,6 @@
         <!-- /.box-footer -->
       </form>
     </div>
-   
 <script type="text/javascript">
    $(function(){
 	   $(".box-footer")
@@ -54,7 +53,7 @@
 	              cfgPwd:$("#cfgPwdId").val()
 	   }
 	   //2.定义请求的url
-	   var url="user/doUpdatePassword.do"
+	   var url="user/doUpdatePassword"
 	   //3.异步提交请求,执行更新操作
 	   $.post(url,params,function(result){
 			alert(result.message);
@@ -62,10 +61,6 @@
    }
 
 </script>
-    
-    
-    
-    
-    
+
     
     
