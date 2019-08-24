@@ -32,7 +32,7 @@ public class OrderController {
 	public SysResult saveOrder(Order order) {
 		try {
 			Integer userId = UserThreadLocal.getUser().getId();
-			order.setUserId(userId);
+			order.setId(userId);
 			//当订单入库时需要返回订单ID号
 			String orderId = orderService.saveOrder(order);
 			if(!StringUtils.isEmpty(orderId)) {
