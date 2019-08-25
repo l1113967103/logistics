@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tt.bus.mapper.OrderDescMapper;
 import com.tt.bus.mapper.OrderMapper;
 import com.tt.bus.service.OrderService;
+import com.tt.common.vo.PageObject;
 import com.tt.pojo.Order;
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -21,8 +23,28 @@ public class OrderServiceImpl implements OrderService{
 
 	/**根据分页查询订单信息*/
 	@Override
-	public List<Order> findAllOrder(Integer orderDescId, Integer pageCurent) {
-		// TODO Auto-generated method stub
+	public List<Order> findAllOrder(Integer orderNumber, Integer pageCurrent) {
+		QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+		Integer pageSize=5;//每页5条数据
+		Integer startIndex = (pageCurrent-1)*pageSize;
+		//查询订单总数量
+		Integer count = 0;
+		/**当前页要呈现的记录*/
+		List<Order> records = null;
+		if(null==orderNumber||"".equals(orderNumber)) {
+			count = orderMapper.selectCount(null);//查询所有订单数量
+			if(count==0)
+				throw new RuntimeException("没有订单信息");
+			records = orderMapper.selectOrderNumberByPage(startIndex, pageSize);
+		}else {
+			queryWrapper.like("order_number", orderNumber);
+			count = orderMapper.selectCount(queryWrapper);//根据汽车名称查询所有汽车数量
+			if(count==0)
+				throw new RuntimeException("没有车辆信息");
+			records = vehicleMapper.selectVehicleByName(username,startIndex, pageSize);
+		}
+		int pageCount=(count-1)/pageSize+1;
+		return new PageObject<>(records, count, pageCount, pageCurrent, pageSize);
 		return null;
 	}
 

@@ -7,7 +7,7 @@ import com.tt.pojo.Order;
 public interface OrderService {
 
 	/**分页查询订单*/
-	List<Order> findAllOrder(Integer orderDescId,Integer pageCurent);
+	List<Order> findAllOrder(Integer orderNumber,Integer pageCurrent);
 	
 	/**审核订单 */
 	int verifyOrder(Order order);

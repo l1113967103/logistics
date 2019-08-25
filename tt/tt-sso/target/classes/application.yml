@@ -32,16 +32,16 @@ logging:
     com.jt.mapper: debug
 
 #引入dubbo的配置
-#dubbo:
-  #scan:
-    #basePackages: com.tt
-  #application:
-    #name: provider-user
-  #registry:
-    #address: zookeeper://192.168.44.4:2181?backup=192.168.44.4:2182,192.168.44.4:2183
-  #protocol:
-    #name: dubbo
-    #port: 20880
+dubbo:
+  scan:
+    basePackages: com.tt
+  application:
+    name: provider-user
+  registry:
+    address: zookeeper://192.168.44.4:2181?backup=192.168.44.4:2182,192.168.44.4:2183
+  protocol:
+    name: dubbo
+    port: 20880
 
 
 

@@ -33,14 +33,14 @@ public class DubboUserServiceImpl implements DubboUserService{
 	@Transactional
 	@Override
 	public void saveUser(User user) {
-		String md5Pass = 
-		DigestUtils.md5DigestAsHex
-		(user.getPassword().getBytes());
+		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
 		user.setPassword(md5Pass)
-			.setEmail(user.getPhone())
+			.setEmail(user.getEmail())
 			.setCreated(new Date())
 			.setUpdated(user.getCreated());
-		userMapper.insert(user);
+		int row = userMapper.insert(user);
+		if(row==0)
+			throw new RuntimeException("注册失败");
 	}
 	
 	
@@ -53,14 +53,14 @@ public class DubboUserServiceImpl implements DubboUserService{
 	 */
 	@Override
 	public String doLogin(User user) {
-		System.out.println("user===:"+user);
+//		System.out.println("user===:"+user);
 		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
 		user.setPassword(md5Pass);
 		QueryWrapper<User> queryWrapper = new QueryWrapper<>(user);
 		User userDB = userMapper.selectOne(queryWrapper);
 		String token = null;
 		if(userDB != null) {
-			token = "JT_TICKET_"+System.currentTimeMillis()+userDB.getUsername();
+			token = "TT_TICKET_"+System.currentTimeMillis()+userDB.getUsername();
 			token = DigestUtils.md5DigestAsHex(token.getBytes());
 			//数据比较敏感时需要做脱敏处理
 			userDB.setPassword("123456");
@@ -69,12 +69,4 @@ public class DubboUserServiceImpl implements DubboUserService{
 		}
 		return token;
 	}
-
-
-	@Override
-	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

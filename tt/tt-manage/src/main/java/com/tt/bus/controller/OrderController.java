@@ -8,12 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.tt.bus.service.OrderService;
 import com.tt.common.vo.JsonResult;
-import com.tt.common.vo.SysResult;
 import com.tt.pojo.Order;
-import com.tt.service.DubboOrderService;
 
 @Controller
 @RequestMapping("/order")
@@ -27,8 +24,8 @@ public class OrderController {
 	/**分页查询订单*/
 	@RequestMapping("/findAllOrder")
 	@ResponseBody
-	public JsonResult findAllOrder(Integer orderDescId,Integer pageCurent,Model model){
-		List<Order> orderList = orderService.findAllOrder(orderDescId, pageCurent);
+	public JsonResult findAllOrder(Integer orderNumber,Integer pageCurent,Model model){
+		List<Order> orderList = orderService.findAllOrder(orderNumber, pageCurent);
 		model.addAttribute("orderList", orderList);
 		return new JsonResult(orderList);
 	}

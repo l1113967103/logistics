@@ -60,10 +60,39 @@
 	   .click(doChangeTBodyCheckBoxState);
 	   //tbody中checkbox对象事件注册
 	   $("#btn-add")
-	   .on("click",".btn-add",doLoadPage)
+	   .on("click",".btn-add",doLoadEditUI)
 	   $("#tbodyId")
 	   .on("click",".cBox",doChangeTHeadCheckBoxState)
    });
+   //加载添加车辆界面
+   function doLoadEditUI(){
+	   var title;
+	   if($(this).hasClass('btn-add')){
+		   title="添加车辆";
+		   doLoadPageUI(title);
+	   }else{
+		   title="修改车辆"
+		   var id=$(this).parents("tr").data("id");
+		   var params={"id":id};
+		   var url="role/doFindObjectById";
+		   $.getJSON(url,params,function(result){
+			   if(result.state==1){
+				  result.data.id=id;//在结果中动态追加id
+				  $("#mainContentId").data("data",result.data);
+				  doLoadPageUI(title);//异步加载页面  
+			   }else{
+				  alert(result.message); 
+			   }
+		   });
+	   }
+   }
+   function doLoadPageUI(title){
+	   var url="trans/doTransEditUI"
+	   $("#mainContentId")
+	   .load(url,function(){
+		   $(".box-title").html(title);
+	   })
+   }
    //修改thead中checkbox状态
    function doChangeTHeadCheckBoxState(){
 	 //1.获取所有tbody中checkbox对象状态相与的结果

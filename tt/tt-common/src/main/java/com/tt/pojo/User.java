@@ -15,6 +15,5 @@ public class User extends BasePojo{
 	private Integer id;	//主键自增
 	private String username;
 	private String password;
-	private String phone;
 	private String email;
 }
