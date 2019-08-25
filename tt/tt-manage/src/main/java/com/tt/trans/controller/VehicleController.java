@@ -37,8 +37,8 @@ public class VehicleController {
 		return new JsonResult("delete ok,rows="+rows);
 	}
 	/**跳转新增界面*/
-	@RequestMapping("/doAddPage")
-	public String doAddPage() {
+	@RequestMapping("/doLoadPage")
+	public String doLoadPage() {
 		return "trans/trans_edit";
 	}
 	

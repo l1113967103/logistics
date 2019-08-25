@@ -20,9 +20,10 @@ public class Inbills {
 
 	@TableId(type = IdType.AUTO)
 	private Integer id;//入库单id
+	private Integer storageId;//仓库id
 	private String inputPlace;//入库地点
 	private Integer orderDescId;//商品id
-	private String commodityType;//商品类型
-	private Integer orderNum;//订单数量
+	private String orderDescKind;//商品类型
+	private Integer orderDescNum;//订单数量
 	private Date inputTime;//入库时间
 }

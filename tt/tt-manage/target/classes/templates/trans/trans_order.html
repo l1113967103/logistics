@@ -3,6 +3,7 @@
 		<div class="box">
 				<h3 class="box-title" style="">运输管理</h3>
 			<div class="box-header">
+			<button type="button" id="btn-add"class="btn btn-default btn-add" style="height:30px;">新增</button>
 
 				<div class="box-tools">
 					<div class="input-group input-group-sm" style="width: 330px;">
@@ -36,7 +37,6 @@
 					</tbody>
 				</table>
 			</div>
-			<a href="trans/doAddPage"><input type="button" class="btn btn-default btn-delete" value="新增"/></a>
 			<div id="pageId" class="box-footer clearfix"></div>
 			<!-- /.box-body -->
 		</div>
@@ -59,6 +59,8 @@
 	   $("#checkAll")
 	   .click(doChangeTBodyCheckBoxState);
 	   //tbody中checkbox对象事件注册
+	   $("#btn-add")
+	   .on("click",".btn-add",doLoadPage)
 	   $("#tbodyId")
 	   .on("click",".cBox",doChangeTHeadCheckBoxState)
    });

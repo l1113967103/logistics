@@ -8,11 +8,13 @@ public interface OrderService {
 
 	/**分页查询订单*/
 	List<Order> findAllOrder(Integer orderDescId,Integer pageCurent);
-	/**根据商品id查询order(订单)信息*/
-	Order findOrder(Integer orderDescId);
-	/**添加订单信息*/
-	int addOrder(Order order);
+	
 	/**审核订单 */
 	int verifyOrder(Order order);
-	/***/
+	/**删除订单*/
+	int delOrder(Integer orderId);
+	/**修改订单*/
+	int updateOrder(Order order);
+	/**查询订单，为了生成订单时使用*/
+	Order findOrder(Integer orderDescId);
 }

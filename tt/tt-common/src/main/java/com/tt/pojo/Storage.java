@@ -1,7 +1,5 @@
 package com.tt.pojo;
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,15 +13,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("outbills")
-public class Outbills {
-
+@TableName("storage")
+public class Storage {
 	@TableId(type = IdType.AUTO)
-	private Integer id;//出库单id
-	private Integer storageId;//出库仓库id
-	private String outputPlace;//出库地点
-	private Integer orderDescId;//商品id
-	private String orderDescKind;//商品类型
-	private Integer orderDescNum;//订单数量
-	private Date outputTime;//出库时间
+	private Integer id;//仓库id
+	private String name;//仓库姓名
+	private String addr;//仓库地址
+	private String tel;//仓库电话
 }

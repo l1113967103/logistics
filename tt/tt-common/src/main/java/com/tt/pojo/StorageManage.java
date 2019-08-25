@@ -11,19 +11,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("outbills")
-public class Outbills {
-
+@TableName("storage_manage")
+public class StorageManage {
 	@TableId(type = IdType.AUTO)
-	private Integer id;//出库单id
-	private Integer storageId;//出库仓库id
-	private String outputPlace;//出库地点
-	private Integer orderDescId;//商品id
+	private Integer id;//库存id
+	private Integer storeId;//仓库id
 	private String orderDescKind;//商品类型
-	private Integer orderDescNum;//订单数量
-	private Date outputTime;//出库时间
+	private Integer orderDescNum;//商品数量
+	private Date inputTime;//入库时间
+	private Date outTime;//出库时间
 }

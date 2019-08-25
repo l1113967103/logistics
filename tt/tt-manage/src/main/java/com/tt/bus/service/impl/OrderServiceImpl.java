@@ -25,6 +25,21 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int delOrder(Integer orderId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int updateOrder(Order order) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	/**根据商品id查询order(订单)信息*/
 	@Override
 	public Order findOrder(Integer orderDescId) {
@@ -32,23 +47,6 @@ public class OrderServiceImpl implements OrderService{
 		if(order==null)
 			throw new RuntimeException("没有该商品的订单信息");
 		return order;
-	}
-
-	//新增订单信息,同时新增商品信息
-	@Override
-	@Transactional
-	public int addOrder(Order order) {
-		int row = 0;
-		try {
-			order.setCreateTime(new Date()).setModifiedTime(order.getCreateTime());
-			row = orderMapper.insert(order);
-			int row1 = orderDescMapper.insert(order.getOrderDesc());
-			if(row==0||row1==0)
-				throw new RuntimeException("订单添加失败");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return row;
 	}
 
 	//审核订单0.未审核1.通过2.不通过
