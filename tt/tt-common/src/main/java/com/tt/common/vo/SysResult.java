@@ -35,4 +35,7 @@ public class SysResult implements Serializable{
 	public static SysResult fail(String msg) {
 		return new SysResult(0, msg, null);
 	}
+	public static SysResult fail(String msg,Object data) {
+		return new SysResult(0, msg, data);
+	}
 }

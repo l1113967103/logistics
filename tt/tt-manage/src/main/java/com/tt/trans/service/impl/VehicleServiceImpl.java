@@ -21,6 +21,8 @@ public class VehicleServiceImpl implements VehicleService{
 	@Override
 	public PageObject<Vehicle> findPageObjects(String username, Integer pageCurrent) {
 		QueryWrapper<Vehicle> queryWrapper = new QueryWrapper<>();
+		Integer pageSize=5;//每页5条数据
+		Integer startIndex = (pageCurrent-1)*pageSize;
 		//查询汽车总数量
 		Integer count = 0;
 		/**当前页要呈现的记录*/
@@ -29,13 +31,14 @@ public class VehicleServiceImpl implements VehicleService{
 			count = vehicleMapper.selectCount(null);//查询所有汽车数量
 			if(count==0)
 				throw new RuntimeException("没有车辆信息");
-			records = vehicleMapper.selectList(null);
+			records = vehicleMapper.selectVehicleByPage(startIndex, pageSize);
 		}else {
 			queryWrapper.like("name", username);
 			count = vehicleMapper.selectCount(queryWrapper);//根据汽车名称查询所有汽车数量
-			records = vehicleMapper.selectList(queryWrapper);
+			if(count==0)
+				throw new RuntimeException("没有车辆信息");
+			records = vehicleMapper.selectVehicleByName(username,startIndex, pageSize);
 		}
-		Integer pageSize=5;
 		int pageCount=(count-1)/pageSize+1;
 		return new PageObject<>(records, count, pageCount, pageCurrent, pageSize);
 	} 
@@ -53,6 +56,7 @@ public class VehicleServiceImpl implements VehicleService{
 		return rows;
 	}
 
+	//修改车辆信息
 	@Override
 	public int updateVehicle(Vehicle vehicle) {
 		if(null==vehicle||"".equals(vehicle.getName()))
@@ -63,6 +67,7 @@ public class VehicleServiceImpl implements VehicleService{
 		return rows;
 	}
 
+	//新增车辆信息
 	@Override
 	public int addVehicle(Vehicle vehicle) {
 		if(vehicle==null||"".equals(vehicle.getName()))

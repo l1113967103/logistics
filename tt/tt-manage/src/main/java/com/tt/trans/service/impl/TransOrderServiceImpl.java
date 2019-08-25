@@ -70,7 +70,7 @@ public class TransOrderServiceImpl implements TransOrderService{
 	@Override
 	public int createTransOrder(Outbills Outbills, Vehicle vehicle, Driver driver) {
 		String destPlace = orderService.findOrder(Outbills.getOrderDescId()).getReceiverAddr();
-		TransOrder transOrder = new TransOrder(null, Outbills.getOrderDescId(), driver.getId(), vehicle.getId(), Outbills.getOutputPlace(), destPlace, 1);
+		TransOrder transOrder = new TransOrder(null,Outbills.getOrderDescId(),driver.getId(),vehicle.getId(),Outbills.getOutputPlace(),Outbills.getOutputPlace(),destPlace,1);
 		int row = transOrderMapper.insert(transOrder);
 		if(row==0)
 			throw new RuntimeException("生成运输单失败");

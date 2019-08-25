@@ -1,5 +1,7 @@
 package com.tt.pojo;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -21,4 +23,5 @@ public class Vehicle {
 	private String name;
 	private String type;
 	private Integer status;//1.表示车辆正常。0.表示车辆在维修中
+	private Date createdTime;//创建时间
 }

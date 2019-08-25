@@ -20,7 +20,7 @@ public class TestVehicle {
 	private VehicleService vehicleService;
 	@Test
 	public void addVehicle() {
-		Vehicle vehicle = new Vehicle(null, 1, "小飞侠", "小汽车", 1);
+		Vehicle vehicle = new Vehicle(null, 1, "小飞侠", "小汽车", 1, null);
 		vehicleService.addVehicle(vehicle);
 	}
 	@Test
@@ -34,7 +34,7 @@ public class TestVehicle {
 	}
 	@Test
 	public void updVehicle() {
-		Vehicle vehicle = new Vehicle(8,2, "小飞侠", "小汽车", 2);
+		Vehicle vehicle = new Vehicle(8,2, "小飞侠", "小汽车", 2, null);
 		vehicleService.updateVehicle(vehicle);
 	}
 }

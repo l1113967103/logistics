@@ -70,4 +70,11 @@ public class DubboUserServiceImpl implements DubboUserService{
 		return token;
 	}
 
+
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

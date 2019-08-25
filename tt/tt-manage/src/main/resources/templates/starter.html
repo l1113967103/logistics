@@ -281,7 +281,7 @@ desired effect
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a id="load-car-id">车辆管理</a></li>
-							<li><a id="load-orders-id">配送单查询</a></li>
+							<li><a id="load-orders-id">运输单管理</a></li>
 							<li><a id="load-pro-id">货物追踪</a></li>
 						</ul></li>
 					<li class="treeview"><a href="#"><i class="fa fa-link"></i>
@@ -306,7 +306,7 @@ desired effect
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					丅丄 Logistics <small>wishes everyone happy every day</small>
+					丅丄 Logistics <small></small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -443,16 +443,18 @@ desired effect
 	  doLoadUI("load-role-id","role/doRoleListUI");
 	  doLoadUI("load-user-id","user/doUserListUI");
 	  doLoadUI("load-pwd-id","user/doPwdEditUI");
-	  doLoadUI("load-order-add","user/doUserListUI.do");
-	  doLoadUI("load-order-id","user/doUserListUI.do");
-	  doLoadUI("load-store-id","user/doUserListUI.do");
-	  doLoadUI("load-manage-id","user/doUserListUI.do");
-	  doLoadUI("load-car-id","user/doUserListUI.do");
-	  doLoadUI("load-orders-id","user/doUserListUI.do");
-	  doLoadUI("load-pro-id","user/doUserListUI.do");
-	  doLoadUI("load-ho-id","user/doUserListUI.do");
-	  doLoadUI("load-dv-id","user/doUserListUI.do");
-	  doLoadUI("load-sap-id","user/doUserListUI.do");
+	  doLoadUI("load-order-add","user/doUserListUI");
+	  doLoadUI("load-order-id","user/doUserListUI");
+	  doLoadUI("load-store-id","user/doUserListUI");
+	  doLoadUI("load-manage-id","user/doUserListUI");
+	  
+	  doLoadUI("load-car-id","trans/doVehicleListUI");
+	  doLoadUI("load-orders-id","trans/doUserListUI");
+	  doLoadUI("load-pro-id","trans/doUserListUI");
+	  
+	  doLoadUI("load-ho-id","user/doUserListUI");
+	  doLoadUI("load-dv-id","user/doUserListUI");
+	  doLoadUI("load-sap-id","user/doUserListUI");
    });
    function doLoadUI(id,url){
 	   $("#"+id).click(function(){
