@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("storage_manage")
-public class StorageManage {
+public class StorageManage extends BasePojo{
 	@TableId(type = IdType.AUTO)
 	private Integer id;//库存id
 	private Integer storeId;//仓库id

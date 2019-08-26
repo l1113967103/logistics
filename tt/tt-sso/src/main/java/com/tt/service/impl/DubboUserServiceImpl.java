@@ -36,8 +36,8 @@ public class DubboUserServiceImpl implements DubboUserService{
 		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
 		user.setPassword(md5Pass)
 			.setEmail(user.getEmail())
-			.setCreated(new Date())
-			.setUpdated(user.getCreated());
+			.setCreatedTime(new Date())
+			.setModifiedTime(user.getCreatedTime());
 		int row = userMapper.insert(user);
 		if(row==0)
 			throw new RuntimeException("注册失败");

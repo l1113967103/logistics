@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("inbills")
-public class Inbills {
+public class Inbills extends BasePojo{
 
 	@TableId(type = IdType.AUTO)
 	private Integer id;//入库单id

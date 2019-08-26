@@ -30,13 +30,13 @@ public class VehicleServiceImpl implements VehicleService{
 		if(null==username||"".equals(username)) {
 			count = vehicleMapper.selectCount(null);//查询所有汽车数量
 			if(count==0)
-				throw new RuntimeException("没有车辆信息");
+				throw new ServiceException("没有车辆信息");
 			records = vehicleMapper.selectVehicleByPage(startIndex, pageSize);
 		}else {
 			queryWrapper.like("name", username);
 			count = vehicleMapper.selectCount(queryWrapper);//根据汽车名称查询所有汽车数量
 			if(count==0)
-				throw new RuntimeException("没有车辆信息");
+				throw new ServiceException("没有车辆信息");
 			records = vehicleMapper.selectVehicleByName(username,startIndex, pageSize);
 		}
 		int pageCount=(count-1)/pageSize+1;
@@ -60,10 +60,10 @@ public class VehicleServiceImpl implements VehicleService{
 	@Override
 	public int updateVehicle(Vehicle vehicle) {
 		if(null==vehicle||"".equals(vehicle.getName()))
-			throw new RuntimeException("请填写修改车辆信息");
+			throw new ServiceException("请填写修改车辆信息");
 		int rows = vehicleMapper.updateById(vehicle);
 		if(rows==0)
-			throw new RuntimeException("修改车辆信息失败");
+			throw new ServiceException("修改车辆信息失败");
 		return rows;
 	}
 
@@ -71,10 +71,10 @@ public class VehicleServiceImpl implements VehicleService{
 	@Override
 	public int addVehicle(Vehicle vehicle) {
 		if(vehicle==null||"".equals(vehicle.getName()))
-			throw new RuntimeException("请填写新增车辆信息");
+			throw new ServiceException("请填写新增车辆信息");
 		int rows = vehicleMapper.insert(vehicle);
 		if(rows==0)
-			throw new RuntimeException("添加车辆信息失败");
+			throw new ServiceException("添加车辆信息失败");
 		return rows;
 	}
 

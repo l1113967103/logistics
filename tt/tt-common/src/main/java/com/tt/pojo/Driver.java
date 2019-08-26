@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("driver")
-public class Driver {
+public class Driver extends BasePojo{
 
 	@TableId(type = IdType.AUTO)
 	private Integer id;//司机id

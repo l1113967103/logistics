@@ -8,22 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.tt.bus.mapper.OrderDescMapper;
 import com.tt.bus.mapper.OrderMapper;
 import com.tt.bus.service.OrderService;
 import com.tt.common.vo.PageObject;
 import com.tt.pojo.Order;
+import com.tt.util.ObjectThreadLocal;
 @Service
 public class OrderServiceImpl implements OrderService{
 
 	@Autowired
 	private OrderMapper orderMapper;
-	@Autowired
-	private OrderDescMapper orderDescMapper;
 
 	/**根据分页查询订单信息*/
 	@Override
-	public List<Order> findAllOrder(Integer orderNumber, Integer pageCurrent) {
+	public PageObject<Order> findAllOrder(Integer orderNumber, Integer pageCurrent) {
 		QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
 		Integer pageSize=5;//每页5条数据
 		Integer startIndex = (pageCurrent-1)*pageSize;
@@ -38,37 +36,13 @@ public class OrderServiceImpl implements OrderService{
 			records = orderMapper.selectOrderNumberByPage(startIndex, pageSize);
 		}else {
 			queryWrapper.like("order_number", orderNumber);
-			count = orderMapper.selectCount(queryWrapper);//根据汽车名称查询所有汽车数量
+			count = orderMapper.selectCount(queryWrapper);//根据订单编号查询所有订单数量
 			if(count==0)
-				throw new RuntimeException("没有车辆信息");
-			records = vehicleMapper.selectVehicleByName(username,startIndex, pageSize);
+				throw new RuntimeException("没有订单信息");
+			records = orderMapper.selectOrderNumberByPage(orderNumber,startIndex, pageSize);
 		}
 		int pageCount=(count-1)/pageSize+1;
 		return new PageObject<>(records, count, pageCount, pageCurrent, pageSize);
-		return null;
-	}
-
-	@Override
-	public int delOrder(Integer orderId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int updateOrder(Order order) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	/**根据商品id查询order(订单)信息*/
-	@Override
-	public Order findOrder(Integer orderDescId) {
-		Order order = orderMapper.findOrderByOrderDescId(orderDescId);
-		if(order==null)
-			throw new RuntimeException("没有该商品的订单信息");
-		return order;
 	}
 
 	//审核订单0.未审核1.通过2.不通过
@@ -84,13 +58,21 @@ public class OrderServiceImpl implements OrderService{
 			int row = orderMapper.updateById(order);
 			if(row==0)
 				throw new RuntimeException("审核订单失败");
+			//将审核通过的订单交给仓储部门进行商品入库，为了生成入库单
+			ObjectThreadLocal.setObject(order);
 			return 1;
 		}else if(order.getStatus()==2){
-			//交给用户重新填写订单
+			//交给用户重新填写订单发往web
 			return 2;
 		}else {
 			return 0;
 		}
+	}
+
+	@Override
+	public Order findOrder(Integer orderDescId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

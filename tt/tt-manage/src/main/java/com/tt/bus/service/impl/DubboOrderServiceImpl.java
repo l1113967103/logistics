@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tt.bus.mapper.OrderDescMapper;
 import com.tt.bus.mapper.OrderMapper;
-import com.tt.common.vo.SysResult;
 import com.tt.pojo.Order;
 import com.tt.service.DubboOrderService;
 
@@ -18,12 +17,6 @@ public class DubboOrderServiceImpl implements DubboOrderService{
 	private OrderMapper orderMapper;
 	
 	private OrderDescMapper orderDescMapper;
-
-	@Override
-	public void backOrder(SysResult fail) {
-		//调用order项目，将信息反馈给用户，审核不通过
-		
-	}
 
 	/**根据商品id查询order(订单)信息*/
 	@Override

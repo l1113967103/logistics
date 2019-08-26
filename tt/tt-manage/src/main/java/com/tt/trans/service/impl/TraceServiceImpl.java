@@ -23,13 +23,13 @@ public class TraceServiceImpl implements TraceService{
 	//实现货物追踪
 	@Override
 	public int updateTransOrderById(TransOrder transOrder) {
-		if(transOrder.getProcess_state()==null)
+		if(transOrder.getProcessState()==null)
 			throw new RuntimeException("请输入货物状态信息");
 		TransOrder transOrder2 = traceMapper.selectById(transOrder.getId());//查看数据库原有信息
 		if(transOrder2==null)
 			throw new RuntimeException("该运输单不存在");
 		//将数据库状态与货物状态比对是否改变
-		if(transOrder2.getProcess_state().equals(transOrder.getProcess_state()))
+		if(transOrder2.getProcessState().equals(transOrder.getProcessState()))
 			throw new RuntimeException("请修改货物状态");
 		int row = traceMapper.updateById(transOrder);
 		if(row==0)

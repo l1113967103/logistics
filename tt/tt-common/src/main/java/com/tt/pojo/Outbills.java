@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("outbills")
-public class Outbills {
+public class Outbills extends BasePojo{
 
 	@TableId(type = IdType.AUTO)
 	private Integer id;//出库单id

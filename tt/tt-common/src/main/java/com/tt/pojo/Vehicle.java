@@ -16,10 +16,10 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("vehicle")
-public class Vehicle {
+public class Vehicle extends BasePojo{
 	@TableId(type = IdType.AUTO)
 	private Integer id;
-	private Integer transOrderId;
+	private Integer transOrderId;//运输单id
 	private String name;
 	private String type;
 	private Integer status;//1.表示车辆正常。0.表示车辆在维修中
