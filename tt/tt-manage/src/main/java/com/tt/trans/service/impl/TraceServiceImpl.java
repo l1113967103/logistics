@@ -12,9 +12,9 @@ public class TraceServiceImpl implements TraceService{
 	private TraceMapper traceMapper;
 	/**查询运输单编号为。。。的信息*/
 	@Override
-	public TransOrder findByTransOrderId(Integer transOrderId) {
+	public TransOrder findByTransOrderId(Integer transId) {
 		QueryWrapper<TransOrder> queryWrapper = new QueryWrapper<>();
-		queryWrapper.eq("trans_order_id", transOrderId);
+		queryWrapper.eq("id", transId);
 		TransOrder transOrder = traceMapper.selectOne(queryWrapper);
 		if(transOrder==null)
 			throw new RuntimeException("该运输单不存在");
@@ -29,13 +29,12 @@ public class TraceServiceImpl implements TraceService{
 		if(transOrder2==null)
 			throw new RuntimeException("该运输单不存在");
 		//将数据库状态与货物状态比对是否改变
-		if(transOrder2.getProcessState().equals(transOrder.getProcessState()))
+		if((transOrder2.getProcessState()).equals(transOrder.getProcessState())) {
 			throw new RuntimeException("请修改货物状态");
+		}
 		int row = traceMapper.updateById(transOrder);
 		if(row==0)
 			throw new RuntimeException("货物信息修改失败");
 		return row;
 	}
-
-	
 }

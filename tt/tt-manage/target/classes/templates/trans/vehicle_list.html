@@ -24,9 +24,15 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>车辆名称</th>
-							<th>车辆类型</th>
-							<th>车辆状态</th>
+							<th>ID</th>
+							<th>运输单ID</th>
+							<th>下单客户编号</th>
+							<th>汽车名称</th>
+							<th>汽车类型</th>
+							<th>状态</th>
+							<th>创建时间</th>
+							<th>修改时间</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody id="tbodyId"></tbody>
@@ -169,14 +175,13 @@
    function doCreateTds(row){
 	   console.log(row);
 	   var tds="<td><input type='radio' name='radioId' value='"+row.id+"' ></td>"+
-	     "<td>"+row.username+"</td>"+
-	     "<td>"+(row.sysDept?row.sysDept.name:'未分配')+"</td>"+
-	     "<td>"+row.email+"</td>"+
-	     "<td>"+row.mobile+"</td>"+
-	     "<td>"+(row.valid?"正常":"维修")+"</td>"+
+	     "<td>"+row.transOrderId+"</td>"+
+	     "<td>"+row.name+"</td>"+
+	     "<td>"+row.type+"</td>"+
+	     "<td>"+(row.status?"正常使用":"正在维修")+"</td>"+
 	     "<td>"+new Date(row.createdTime).toLocaleString()+"</td>"+
 	     "<td>"+new Date(row.modifiedTime).toLocaleString()+"</td>"+
-	     "<td><button type='button' class='btn btn-default btn-valid'>"+(row.valid?"维修":"正常")+"</button></td>"; 
+	     "<td><button type='button' class='btn btn-default btn-status'>"
        return tds;
    }
 </script>

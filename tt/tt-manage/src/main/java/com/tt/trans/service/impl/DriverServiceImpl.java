@@ -1,6 +1,7 @@
 package com.tt.trans.service.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,13 @@ public class DriverServiceImpl implements DriverService{
 	@Override
 	public int addDriver(Driver driver) {
 		if(null==driver||"".equals(driver.getName()))
-			throw new RuntimeException("请填写添加司机信息");
+			throw new RuntimeException("请填写修改司机信息");
+		driver.setStatus(0)
+		.setCreatedTime(new Date())
+		.setModifiedTime(driver.getCreatedTime());
 		int rows = driverMapper.insert(driver);
 		if(rows==0)
-			throw new RuntimeException("新增司机信息失败");
+			throw new RuntimeException("修改司机信息失败");
 		return rows;
 	}
 
@@ -66,6 +70,7 @@ public class DriverServiceImpl implements DriverService{
 	public int updateDriver(Driver driver) {
 		if(driver==null||"".equals(driver.getName()))
 			throw new RuntimeException("请填写新增司机信息");
+		driver.setModifiedTime(new Date());
 		int rows = driverMapper.updateById(driver);
 		if(rows==0)
 			throw new RuntimeException("添加司机信息失败");

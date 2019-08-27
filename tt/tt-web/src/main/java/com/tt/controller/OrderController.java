@@ -63,7 +63,7 @@ public class OrderController {
 	/**根据订单号查询订单*/
 	@RequestMapping("")
 	@ResponseBody
-	public JsonResult findOrder(Integer orderNumber) {
+	public JsonResult findOrder(String orderNumber) {
 		Order order = dubboOrderService.findOrderByOrderNumber(orderNumber);
 		return new JsonResult(order);
 	}

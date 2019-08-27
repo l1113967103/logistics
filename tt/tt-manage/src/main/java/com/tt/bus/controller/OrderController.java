@@ -19,10 +19,15 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
+	@RequestMapping("doOrderListUI")
+	 public String doUserListUI() {
+		 return "sys/order_list";
+	 }
+	
 	/**分页查询订单*/
 	@RequestMapping("/findAllOrder")
 	@ResponseBody
-	public JsonResult findAllOrder(Integer orderNumber,Integer pageCurent){
+	public JsonResult findAllOrder(String orderNumber,Integer pageCurent){
 		PageObject<Order> pageObject = orderService.findAllOrder(orderNumber, pageCurent);
 		return new JsonResult(pageObject);
 	}

@@ -1,6 +1,7 @@
 package com.tt.trans.service.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ public class VehicleServiceImpl implements VehicleService{
 	public int addVehicle(Vehicle vehicle) {
 		if(vehicle==null||"".equals(vehicle.getName()))
 			throw new ServiceException("请填写新增车辆信息");
+		vehicle.setStatus(0).setCreatedTime(new Date()).setModifiedTime(vehicle.getCreatedTime());
 		int rows = vehicleMapper.insert(vehicle);
 		if(rows==0)
 			throw new ServiceException("添加车辆信息失败");

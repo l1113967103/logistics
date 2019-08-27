@@ -52,7 +52,8 @@ public class InbillsServiceImpl implements InbillsService{
 		Object object = ObjectThreadLocal.getObject();
 		if(object instanceof Order) {
 			Order order = (Order) ObjectThreadLocal.getObject();
-			OrderDesc orderDesc = order.getOrderDesc().setStatus(1);//表示商品已入库
+			OrderDesc orderDesc = orderDescMapper.findOrderIdByOrderDesc(order.getId());
+			orderDesc.setStatus(1);//表示商品已入库
 			orderDescMapper.updateById(orderDesc);//改变商品入库信息状态
 			//分页查询商品信息
 			PageObject<OrderDesc> orderDescByPage = orderDescService.findOrderDescByPage(1);//从第一开始
