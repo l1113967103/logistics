@@ -1,0 +1,109 @@
+@charset "utf-8";
+
+
+.trans-orders-box{
+	height: 1000px;
+	width: 1414px;
+	padding: 10px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.5);
+	
+	overflow: scroll;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+.trans-orders-box::-webkit-scrollbar {
+	display: none;
+}
+
+
+.choice-box{
+	height: 80px;
+	width: 100%;	
+	line-height: 60px;
+	padding-bottom: 20px;
+	border-bottom: rgb(191, 191, 191) solid 1px;	
+	position: relative;
+}
+
+.choice-box select{
+	height: 42px;
+	width: 200px;
+	font-size: 18px;
+	padding: 5px 8px;
+	border: none;
+	
+}
+
+
+/* 生成菜单按钮 */
+.orderBtn{
+	display: block;
+	border: none;
+	padding: 10px;
+	font-size: 16px;
+	height: 42px;
+	line-height: 22px;
+	text-align: center;
+	position: absolute;
+	right: 30px;
+	top: 9px;
+}
+.orderBtn:hover{
+	background: red;
+	color: #ffffff;
+}
+
+
+
+/* 订单表 */
+.order-box{
+	background: #ffffff;
+	width: 600px;
+	height: auto;
+	padding: 20px;
+	margin: 40px auto 0 auto;
+	box-shadow: 0 0 8px rgb(181,154,254);
+}
+.order-box table{
+	margin: 0 auto;
+	
+}
+.order-box span h2{
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+}
+}
+.order-box table tr{
+	height: 42px;
+	
+	font-size: 18px;
+	/* border-top: rgb(191, 191, 191) solid 1px; */
+}
+.order-box table tr:last-child{
+	/* border-bottom: rgb(191, 191, 191) solid 1px; */
+}
+
+
+
+.order-box table tr td{
+	display: inline-block;
+	height: 52px;
+	width: 140px;
+	padding: 5px 10px;
+	font-size: 24px;
+	line-height: 42px;
+	text-align: center;
+	
+	border-width: 1px;
+	
+	border-style: solid;
+	border-color: #666666
+}
+
+.theadClass{
+	background: #666666;
+}
+
+

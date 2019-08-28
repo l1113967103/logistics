@@ -1,0 +1,187 @@
+@charset "utf-8";
+
+body{
+	overflow: scroll;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+body::-webkit-scrollbar {
+	display: none;
+}
+
+.warehouse-box{
+	height: 1000px;
+	width: 1414px;
+	padding: 10px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.5);
+	
+	overflow: scroll;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+
+.warehouse-box::-webkit-scrollbar {
+	display: none;
+}
+
+
+
+
+.switch{
+	height: 48px;
+	width: 400px;
+	margin: 0 auto 20px auto;
+	
+	text-align: center;
+}
+.switch span{
+	color: #ccc;
+	font-size: 36px;
+	cursor: pointer;
+	line-height: 48px;
+	
+}
+
+.switch span.active{
+	color: rgb(181,154,254);
+} 
+
+
+
+.ware-nav{
+	height: 74px;
+	width: 100%;
+	padding: 15px;
+	
+	border-top: rgb(191, 191, 191) solid 1px;	
+	border-bottom: rgb(191, 191, 191) solid 1px;	
+	position: relative;
+}
+.checkAll{
+	float: left;
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: 24px;
+}
+
+
+.putBtn,.outBtn{
+	font-size: 18px;
+	padding: 3px 20px;
+	line-height: 24px;
+	
+	position: absolute;
+	
+}
+
+.putBtn{
+	right: 30px;
+}
+.outBtn{
+	right: 120px;
+}
+.input-box{
+	height: 34px;
+	width: 400px;
+	border: none;
+	padding: 0px 20px;
+	position: absolute;
+	right: 210px;
+}
+.select-box{
+	height: 34px;
+	width: 400px;
+	border: none;
+	padding: 0px 20px;
+	position: absolute;
+	right: 210px;
+}
+
+
+
+
+.displayClass{
+	
+	position: absolute;
+	top: 3000px;
+}
+
+
+
+
+
+
+/* 仓库表格样式 */
+.storage-table table tr{
+	height: 42px;
+	width: 100%;
+}
+.storage-table table tr td{
+	display: inline-block;
+	height: 42px;
+	width: 100px;
+	font-size: 16px;
+	line-height: 42px;
+	text-align: center;
+}
+.storage-table table tr td:first-child{
+	width: 60px;
+}
+.storage-table table tr td input{
+	height: 20px;
+	width: 20px;
+}
+
+
+
+/* 商品表格样式 */
+.orderdesc-table table tr{
+	height: 42px;
+	width: 100%;
+}
+.orderdesc-table table tr td{
+	display: inline-block;
+	height: 42px;
+	width: 100px;
+	font-size: 16px;
+	line-height: 42px;
+	text-align: center;
+}
+.orderdesc-table table tr td:first-child{
+	width: 60px;
+}
+.orderdesc-table table tr td input{
+	height: 20px;
+	width: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

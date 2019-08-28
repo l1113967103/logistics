@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 public class OrderDesc extends BasePojo{
 	@TableId(type = IdType.AUTO)
 	private Integer id;//商品ID
-	private Integer orderId;//订单ID
+	private Integer tbOrderId;//订单ID
 	private Integer storageId;//仓库id
 	private Integer storageManageId;//库存id
 	private String name;//商品名称

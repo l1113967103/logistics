@@ -11,15 +11,12 @@ import com.tt.pojo.Vehicle;
 import com.tt.trans.service.VehicleService;
 
 @Controller
-@RequestMapping("/trans")
+@RequestMapping("/vehicle")
 public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
-	@RequestMapping("/doVehicleListUI")
-	public String doVehicleListUI() {
-		return "trans/trans_order";
-	}
+	
 	
 	//分页查询
 	@RequestMapping("/doFindPageObjects")

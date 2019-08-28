@@ -1,0 +1,133 @@
+<div class="warehouse-box">
+	<div class="switch">
+		<span id="storage" class="active">storage</span> 
+		<span>/</span> 
+		<span id="orderdesc">order desc</span>
+	</div>
+	<div class="ware-nav">
+		<!-- 多选按钮 -->
+		<!-- <input type="checkbox" id="checkAll" class="checkAll" />  -->
+		<!-- 输入框 -->
+		<input type="text" id="input-box" class="input-box" placeholder="输入入库/出库地址"/>
+		<!-- 复选框 -->
+		<!-- 
+		<select  class="select-box">
+	        <option>请选择</option>
+	        <option>选项一</option>
+	        <option>选项二</option>
+	        <option>选项三</option>
+	        <option>选项四</option>
+	        <option>选项五</option>
+	        <option>选项六</option>
+	        <option>选项七</option>
+    	</select>
+    	 -->
+		<!-- 出库 -->
+		<input type="button" id="outBtn" class="outBtn" value="出库">
+		<!-- 入库 -->
+		<input type="button" id="putBtn" class="putBtn" value="入库">
+	</div>
+	<div class="storage-table">
+		<table>
+			<tr>
+		        <td>-</td>
+		        <td>id</td>
+		        <td>name</td>
+		        <td>addr</td>
+		        <td>tel</td>
+		        <td>created-time</td>
+		        <td>modified-time</td>
+    		</tr>
+			<tr>
+		        <td>
+		        	<input type="radio" checked="checked" name="storage"/>
+		       	</td>
+		        <td>1</td>
+		        <td>牛云</td>
+		        <td>广东</td>
+		        <td>8325727</td>
+		        <td>2019-08-26</td>
+		        <td>2019-08-26</td>
+    		</tr>
+			<tr>
+		        <td>
+		        	<input type="radio" name="storage"/>
+		       	</td>
+		        <td>1</td>
+		        <td>牛云</td>
+		        <td>广东</td>
+		        <td>8325727</td>
+		        <td>2019-08-26</td>
+		        <td>2019-08-26</td>
+    		</tr>
+		</table>
+	</div>
+	<div class="orderdesc-table displayClass">
+		<table>
+			<tr>
+		        <td>-</td>
+		        <td>id</td>
+		        <td>order_id</td>
+		        <td>name</td>
+		        <td>kind</td>
+		        <td>num</td>
+		        <td>weight</td>
+		        <td>bulk</td>
+		        <td>status</td>
+		        <td>created-time</td>
+		        <td>modified-time</td>
+    		</tr>
+			<tr>
+		        <td>
+		        	<input type="checkbox" />
+		       	</td>
+		        <td>1</td>
+		        <td>3305</td>
+		        <td>衣服</td>
+		        <td>8</td>
+		        <td>1</td>
+		        <td>220</td>
+		        <td>63</td>
+		        <td>8325727</td>
+		        <td>2019-08-26</td>
+		        <td>2019-08-26</td>
+    		</tr>
+			<tr>
+		        <td>
+		        	<input type="checkbox" />
+		       	</td>
+		        <td>1</td>
+		        <td>3305</td>
+		        <td>衣服</td>
+		        <td>8</td>
+		        <td>1</td>
+		        <td>220</td>
+		        <td>63</td>
+		        <td>8325727</td>
+		        <td>2019-08-26</td>
+		        <td>2019-08-26</td>
+    		</tr>
+		</table>
+	</div>
+</div>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	/* $("#checkAll").selectCheck(); */
+	
+	$('#storage').click(function(){
+		$('.switch span').removeClass('active');
+		$(this).addClass('active');
+		
+		$(this).parents('.switch').siblings(".storage-table").removeClass("displayClass");
+		$(this).parents('.switch').siblings(".orderdesc-table").addClass("displayClass");
+		
+		
+	})
+	$('#orderdesc').click(function(){
+		$('.switch span').removeClass('active');
+		$(this).addClass('active');
+		
+		$(this).parents('.switch').siblings(".orderdesc-table").removeClass("displayClass");
+		$(this).parents('.switch').siblings(".storage-table").addClass("displayClass");
+	})
+</script>

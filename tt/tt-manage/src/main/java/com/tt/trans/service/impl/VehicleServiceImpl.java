@@ -32,13 +32,13 @@ public class VehicleServiceImpl implements VehicleService{
 			count = vehicleMapper.selectCount(null);//查询所有汽车数量
 			if(count==0)
 				throw new ServiceException("没有车辆信息");
-			records = vehicleMapper.selectVehicleByPage(startIndex, pageSize);
+			records = vehicleMapper.findAllByPage(startIndex, pageSize);
 		}else {
 			queryWrapper.like("name", username);
 			count = vehicleMapper.selectCount(queryWrapper);//根据汽车名称查询所有汽车数量
 			if(count==0)
 				throw new ServiceException("没有车辆信息");
-			records = vehicleMapper.selectVehicleByName(username,startIndex, pageSize);
+			records = vehicleMapper.findVehicleByName(username,startIndex, pageSize);
 		}
 		int pageCount=(count-1)/pageSize+1;
 		return new PageObject<>(records, count, pageCount, pageCurrent, pageSize);

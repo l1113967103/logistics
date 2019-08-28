@@ -23,18 +23,18 @@ public class TestBus {
 	//----------------对order操作
 	/**分页查询订单*/
 	@Test
-	public void findAllOrder() {
+	public void findAllOrder() {//mybatis的mapper中的接口不能重载，否则会报错
 		PageObject<Order> findAllOrder = orderService.findAllOrder(null, 1);
 		System.out.println(findAllOrder);
 	}
 	/**审核订单 */
-	@Test
-	public void verifyOrder() {
-		Order order = new Order(null, "1", 0, "李四", "北京", "1111111", "张三", "宁夏", "22222", 1);
-		order.setCreatedTime(new Date()).setModifiedTime(order.getCreatedTime());
-		int row = orderService.verifyOrder(order);
-		System.out.println(row);
-	}
+//	@Test
+//	public void verifyOrder() {
+//		Order order = new Order(null, "1", 0, "李四", "北京", "1111111", "张三", "宁夏", "22222", 1);
+//		order.setCreatedTime(new Date()).setModifiedTime(order.getCreatedTime());
+//		int row = orderService.verifyOrder(order);
+//		System.out.println(row);
+//	}
 
 	/**查询订单，为了生成订单时使用,生成入库*/
 	@Test

@@ -12,8 +12,8 @@ public interface VehicleMapper extends BaseMapper<Vehicle>{
 
 	/**分页查询*/
 	@Select("select * from vehicle order by created_time desc limit #{startIndex},#{rows}")
-	List<Vehicle> selectVehicleByPage(@Param("startIndex")Integer startIndex,@Param("rows") Integer rows);
+	List<Vehicle> findAllByPage(@Param("startIndex")Integer startIndex,@Param("rows") Integer rows);
 	/**分页查询按照车名*/
-	@Select("select * from vehicle order by created_time desc limit #{startIndex},#{rows} where name=#{name}")
-	List<Vehicle> selectVehicleByName(@Param("name") String name,@Param("startIndex")Integer startIndex,@Param("rows") Integer rows);
+	@Select("select * from vehicle where name like concat('%',#{name},'%') order by created_time desc limit #{startIndex},#{rows}")
+	List<Vehicle> findVehicleByName(@Param("name") String name,@Param("startIndex")Integer startIndex,@Param("rows") Integer rows);	
 }

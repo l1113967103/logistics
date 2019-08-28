@@ -15,6 +15,6 @@ public interface OrderDescMapper extends BaseMapper<OrderDesc>{
 	@Select("select * from order_desc order by modified_time desc limit #{startIndex},#{rows}")
 	List<OrderDesc> findOrderDescByPage(@Param("startIndex")Integer startIndex,@Param("rows") Integer rows);
 	//通过orderId查询orderDesc
-	@Select("SELECT * FROM order_desc WHERE tb_order_id=(SELECT id FROM tb_order WHERE id=#{id})")
+	@Select("select * from order_desc where tb_order_id=(select id from tb_order where id=#{id})")
 	OrderDesc findOrderIdByOrderDesc(@Param("orderId") Integer orderId);
 }

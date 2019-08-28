@@ -1,0 +1,115 @@
+<div class="trans-orders-box">
+	<div class="choice-box">
+		<!-- 出库选择 -->
+		<select  class="outbills-sel-box">
+	        <option>选择出库地点</option>
+	        <option value="1">南方</option>
+	        <option value="2">北方仓库</option>
+	        <option value="3">东方仓库</option>
+	        <option value="4">天水仓库</option>
+    	</select>
+    	<!-- 司机选择 -->
+		<select  class="driver-sel-box">
+	        <option>选择运输司机</option>
+	        <option value="1">李文斌</option>
+	        <option value="3">沙鑫熠</option>
+	        <option value="2">张鑫</option>
+	        <option value="4">张韦</option>
+	        <option value="5">陕文辉</option>
+    	</select>
+    	<!-- 车辆选择 -->
+		<select  class="vehicle-sel-box">
+	        <option>选择运输车辆</option>
+	        <option value="1">反对法</option>
+	        <option value="2">范德萨</option>
+	        <option value="3">大飒飒的</option>
+	        <option value="4">里的</option>
+	        <option value="6">大王</option>
+	        <option value="7">达数万</option>
+    	</select>
+    	<input type="button" id="putBtn" class="orderBtn" value="生成订单">
+	</div>
+	<div class="order-box">
+		
+
+			<span><h2>运输单</h2></span>
+			<table>
+				<tr>
+			        <td class="theadClass">出库地点</td>
+			        <td class="theadClass">运输司机</td>
+			        <td class="theadClass">运输车辆</td>
+			        <td class="theadClass">生成状态</td>
+	    		</tr>
+				<tr>
+			        <td>东方仓库</td>
+			        <td>李文斌</td>
+			        <td>里的</td>
+			        <td>成功</td>
+	    		</tr>
+				<tr>
+			        <td>北方仓库</td>
+			        <td>张鑫</td>
+			        <td>反对法</td>
+			        <td>成功</td>
+	    		</tr>
+			</table>
+
+	</div>
+</div>
+<script type="text/javascript">
+	/* 获得table标签为插入订单做准备 */
+	var tableLab = $(".order-box table");
+	
+	
+	
+	/* 增加点击事件 */
+	$(".orderBtn").click(function(){
+		var url = "trans/orderRequest";
+		/* 获取select中选中的option的值 */
+		var outSel=$(".outbills-sel-box").find("option:selected").text();
+		var driverSel=$(".driver-sel-box").find("option:selected").text();
+		var vehicleSel=$(".vehicle-sel-box").find("option:selected").text();
+		
+		$.post(url,
+			{
+				outVal:outSel,
+				driverVal:driverSel,
+				vehicleVal:vehicleSel
+			},
+			function(data){
+	        	if(parseInt(data.status)==1){
+	        		/* 生成的订单内容 */
+	        		var orderContent = $("<tr><td>"
+	        				+data.outVal+
+	        				"</td><td>"
+	        				+data.driverVal+
+	        				"</td><td>"
+	        				+data.vehicleVal+
+	        				"</td><td>创建成功</td></tr>");
+	        		tableLab.append(orderContent);
+				}else{
+					/* 生成的订单内容 */
+					var orderContent = $("<tr><td>"
+							+data.outVal+
+							"</td><td>"
+							+data.driverVal+
+							"</td><td>"
+							+data.vehicleVal+
+							"</td><td>创建失败</td></tr>");
+					tableLab.append(orderContent);
+				}
+        	});
+});
+	
+	
+	
+	
+</script>
+
+
+
+
+
+
+
+

@@ -17,6 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/warehouse.css" />
+<link rel="stylesheet" href="css/trans.css" />
 <!-- Ionicons -->
 <link rel="stylesheet"
 	href="bower_components/Ionicons/css/ionicons.min.css">
@@ -272,7 +274,8 @@ desired effect
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a id="load-store-id">入库&出库</a></li>
-							<li><a id="load-manage-id">库存信息</a></li>
+							<li><a id="load-managein-id">入库单管理</a></li>
+							<li><a id="load-manageout-id">出库单管理</a></li>
 						</ul></li>
 					<li class="treeview"><a href="#"><i class="fa fa-link"></i>
 							<span>运输管理</span> <span class="pull-right-container"> <i
@@ -280,10 +283,11 @@ desired effect
 						</span> </a>
 						<ul class="treeview-menu">
 							<li><a id="load-car-id">车辆管理</a></li>
+							<li><a id="load-dri-id">司机管理</a></li>
 							<li><a id="load-orders-id">运输单管理</a></li>
-							<li><a id="load-pro-id">货物追踪</a></li>
+<!-- 							<li><a id="load-pro-id">货物追踪</a></li> -->
 						</ul></li>
-					<li class="treeview"><a href="#"><i class="fa fa-link"></i>
+					<!-- <li class="treeview"><a href="#"><i class="fa fa-link"></i>
 							<span>统计分析</span> <span class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span> </a>
@@ -291,7 +295,7 @@ desired effect
 							<li><a id="load-ho-id">历史订单</a></li>
 							<li><a id="load-dv-id">配送量</a></li>
 							<li><a id="load-sap-id">系统访问压力图</a></li>
-						</ul></li>
+						</ul></li> -->
 				</ul>
 				<!-- /.sidebar-menu -->
 			</section>
@@ -443,16 +447,15 @@ desired effect
 	  doLoadUI("load-user-id","user/doUserListUI");
 	  doLoadUI("load-pwd-id","user/doPwdEditUI");
 	  doLoadUI("load-order-select","order/doOrderListUI");
+	  
 	  doLoadUI("load-store-id","rep/doRepListUI");
-	  doLoadUI("load-manage-id","rep/doWareListUI");
+	  doLoadUI("load-managein-id","rep/doInbillsListUI");
+	  doLoadUI("load-manageout-id","rep/doOutbillsListUI");
 	  
 	  doLoadUI("load-car-id","trans/doVehicleListUI");
-	  doLoadUI("load-orders-id","trans/doUserListUI");
-	  doLoadUI("load-pro-id","trans/doUserListUI");
+	  doLoadUI("load-dri-id","trans/doDriverListUI");
+	  doLoadUI("load-orders-id","trans/doTransOrderListUI");
 	  
-	  doLoadUI("load-ho-id","user/doUserListUI");
-	  doLoadUI("load-dv-id","user/doUserListUI");
-	  doLoadUI("load-sap-id","user/doUserListUI");
    });
    function doLoadUI(id,url){
 	   $("#"+id).click(function(){

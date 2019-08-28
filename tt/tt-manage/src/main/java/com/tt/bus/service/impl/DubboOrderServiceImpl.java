@@ -36,9 +36,11 @@ public class DubboOrderServiceImpl implements DubboOrderService{
 		Map<Integer,String> map = new HashMap<>();
 		try {
 			String orderNumber = UUID.randomUUID().toString().replaceAll("-", "");
-			order.setCreatedTime(new Date()).setModifiedTime(new Date());
+			order.setStatus(0).setCreatedTime(new Date()).setModifiedTime(new Date());
+			//显示商品未审核
 			row = orderMapper.insert(order);
 			OrderDesc orderDesc = orderDescMapper.findOrderIdByOrderDesc(order.getId());
+			orderDesc.setStatus(0);//显示商品未入库
 			int row1 = orderDescMapper.insert(orderDesc);
 			if(row==0||row1==0)
 				throw new RuntimeException("订单添加失败");

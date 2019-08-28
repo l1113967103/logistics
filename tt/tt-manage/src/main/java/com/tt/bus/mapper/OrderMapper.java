@@ -14,11 +14,11 @@ public interface OrderMapper extends BaseMapper<Order>{
 	@Select("select * from tb_order where id=(select tb_order_id from order_desc where id=#{id})")
 	Order findOrderByOrderDescId(@Param("id") Integer id);
 	/**web发送的订单号查询订单信息*/
-	@Select("select * from order where order_number=#{orderNumber}")
-	Order findOrderByOrderNumber(@Param("orderNumber")String orderNumber);
-	@Select("select * from order limit #{startIndex},#{pageSize}")
-	List<Order> findOrderNumberByPage(@Param("startIndex")Integer startIndex, @Param("pageSize")Integer pageSize);
-	@Select("select * from order where order_number=#{orderNumber} limit #{startIndex},#{pageSize}")
+	@Select("select * from tb_order where order_number=#{orderNumber}")
+	Order findOrderByOrderNumber(@Param("orderNumber") String orderNumber);
+	@Select("select * from tb_order limit #{startIndex},#{pageSize}")
+	List<Order> findAllByPage(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize);
+	@Select("select * from tb_order where order_number=#{orderNumber} limit #{startIndex},#{pageSize}")
 	List<Order> findOrderNumberByPage(@Param("orderNumber") String orderNumber,@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize);
 
 }

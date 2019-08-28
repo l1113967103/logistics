@@ -1,24 +1,28 @@
-//package com.tt.rep.controller;
-//
-//import java.util.Map;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.ResponseBody;
-//
-//import com.tt.common.vo.JsonResult;
-//import com.tt.common.vo.PageObject;
-//import com.tt.pojo.Inbills;
-//import com.tt.pojo.OrderDesc;
-//import com.tt.pojo.Storage;
-//import com.tt.rep.service.InbillsService;
-//
-//@Controller
-//@RequestMapping("/rep")
-//public class InbillsController {
-//
+package com.tt.rep.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.tt.common.vo.JsonResult;
+import com.tt.common.vo.PageObject;
+import com.tt.pojo.Inbills;
+import com.tt.pojo.OrderDesc;
+import com.tt.pojo.Storage;
+import com.tt.rep.service.InbillsService;
+
+@Controller
+@RequestMapping("/rep")
+public class InbillsController {
+
+	@RequestMapping("/doRepListUI")
+	public String doRepListUI() {
+		return "rep/ware_list";
+	}
 //	@Autowired
 //	private InbillsService inbillsService;
 //
@@ -71,4 +75,4 @@
 //		System.out.println("inbills2:"+inbills2);
 //		return "redirect:/分页查询页面";
 //	}
-//}
+}

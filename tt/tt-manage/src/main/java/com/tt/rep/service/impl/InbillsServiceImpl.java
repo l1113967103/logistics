@@ -1,10 +1,8 @@
 package com.tt.rep.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +23,6 @@ import com.tt.rep.mapper.InbillsMapper;
 import com.tt.rep.mapper.StorageManageMapper;
 import com.tt.rep.service.InbillsService;
 import com.tt.rep.service.StorageService;
-import com.tt.util.ObjectThreadLocal;
 @Service
 public class InbillsServiceImpl implements InbillsService{
 
@@ -43,26 +40,24 @@ public class InbillsServiceImpl implements InbillsService{
 	@Autowired
 	private OrderDescService orderDescService;
 
+	private Order order = null;
 	/**在页面展示商品信息和库存信息*/
-	@Override
-	@Transactional
-	public Map<String,Object> showRepertory() {
-		Map<String,Object> map = new HashMap<>();
-		//获取threadLocal中的order,通过order获取orderDesc
-		Object object = ObjectThreadLocal.getObject();
-		if(object instanceof Order) {
-			Order order = (Order) ObjectThreadLocal.getObject();
-			OrderDesc orderDesc = orderDescMapper.findOrderIdByOrderDesc(order.getId());
-			orderDesc.setStatus(1);//表示商品已入库
-			orderDescMapper.updateById(orderDesc);//改变商品入库信息状态
-			//分页查询商品信息
-			PageObject<OrderDesc> orderDescByPage = orderDescService.findOrderDescByPage(1);//从第一开始
-			map.put("orderDesc", orderDescByPage);
-		}
-		PageObject<Storage> storageByPage = storageService.findStorageByPage(null, 1);
-		map.put("storage", storageByPage);
-		return map;
-	}
+//	@Override
+//	@Transactional
+//	public Map<String,Object> showRepertory() {
+//		Map<String,Object> map = new HashMap<>();
+//		//获取threadLocal中的order,通过order获取orderDesc
+//		Order order = getOrder();
+//		OrderDesc orderDesc = orderDescMapper.findOrderIdByOrderDesc(order.getId());
+//		orderDesc.setStatus(1).setModifiedTime(new Date());//表示商品已入库
+//		orderDescMapper.updateById(orderDesc);//改变商品入库信息状态
+//		//分页查询商品信息
+//		PageObject<OrderDesc> orderDescByPage = orderDescService.findOrderDescByPage(1);//从第一开始
+//		map.put("orderDesc", orderDescByPage);
+//		PageObject<Storage> storageByPage = storageService.findStorageByPage(null, 1);
+//		map.put("storage", storageByPage);
+//		return map;
+//	}
 	/**创建入库单*/
 	@Override
 	@Transactional
@@ -70,6 +65,8 @@ public class InbillsServiceImpl implements InbillsService{
 		int row = 0;
 		try {
 			//生成入库单
+			//			System.err.println(orderDesc);
+			//			System.err.println(storage);
 			Inbills inbills = new Inbills(null,storage.getId(), inputPlace, orderDesc.getId(), orderDesc.getKind(), orderDesc.getNum(), new Date());
 			inbills.setCreatedTime(new Date()).setModifiedTime(inbills.getCreatedTime());
 			row = inbillsMapper.insert(inbills);
@@ -123,6 +120,15 @@ public class InbillsServiceImpl implements InbillsService{
 		if(rows==0)
 			throw new ServiceException("修改入库单信息失败");
 		return rows;
+	}
+	@Override
+	public void setOrder(Order order) {
+		this.order = order;
+
+	}
+	@Override
+	public Order getOrder() {
+		return order;
 	}
 
 }

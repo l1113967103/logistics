@@ -9,7 +9,7 @@ public interface OrderService {
 	PageObject<Order> findAllOrder(String orderNumber,Integer pageCurrent);
 	
 	/**审核订单 */
-	int verifyOrder(Order order);
+	void verifyOrder(Integer id,Integer status);
 	
 	/**查询订单，为了生成订单时使用,生成入库*/
 	Order findOrder(Integer orderDescId);

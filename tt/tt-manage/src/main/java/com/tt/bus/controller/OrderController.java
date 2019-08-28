@@ -1,7 +1,5 @@
 package com.tt.bus.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,28 +17,31 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@RequestMapping("doOrderListUI")
+	@RequestMapping("/doOrderListUI")
 	 public String doUserListUI() {
-		 return "sys/order_list";
+		 return "bus/order_list";
 	 }
 	
 	/**分页查询订单*/
 	@RequestMapping("/findAllOrder")
 	@ResponseBody
-	public JsonResult findAllOrder(String orderNumber,Integer pageCurent){
-		PageObject<Order> pageObject = orderService.findAllOrder(orderNumber, pageCurent);
+	public JsonResult findAllOrder(String orderNumber,Integer pageCurrent){
+		PageObject<Order> pageObject = orderService.findAllOrder(orderNumber, pageCurrent);
 		return new JsonResult(pageObject);
 	}
+	/**跳转到修改页面*/
+//	@RequestMapping("doFindObjectById")
+//	 @ResponseBody
+//	 public JsonResult doFindObjectById(Integer id) {
+//		 return new JsonResult(
+//		 sysUserService.findObjectById(id));
+//	 }
 	
 	/**审核订单*/
 	@RequestMapping("/verifyOrder")
-	public String verifyOrder(Order order) {
-		int flag = orderService.verifyOrder(order);
-		if(flag==2) {
-			//设置不通过的审核时间，不规范的订单是否要删除
-			order.setModifiedTime(new Date());
-		}
+	public String verifyOrder(Integer id,Integer status) {
+		orderService.verifyOrder(id,status);
 		//重定向到查询订单页面
-		return "redirect:/order/findAllOrder";
+		return "redirect:/order/doOrderListUI";
 	}
 }

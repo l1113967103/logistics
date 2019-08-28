@@ -35,18 +35,18 @@ public class TestRep {
 	private OrderDescMapper orderDescMapper;
 	@Autowired
 	private StorageMapper storageMapper;
-	//-------------------------------inbills测试(第1,2个)++++++++++++++++++++++++++++++
+	//-------------------------------inbills测试(第1个)++++++++++++++++++++++++++++++
 	/**进入页面时，返回商品信息和仓库信息*/
-	@Test//*************************************
-	public void showRepertory() {
-		Map<String, Object> map = inbillsService.showRepertory();
-		System.out.println(map);
-	}
+//	@Test//*************************************
+//	public void showRepertory() {
+//		Map<String, Object> map = inbillsService.showRepertory();
+//		System.out.println(map);
+//	}
 	/**生成入库单*/
-	@Test//***************************++++++++++++++++++++++++++++++++++++++++++
+	@Test
 	public void createInbills() {
 		OrderDesc orderDesc = orderDescMapper.selectById(1);
-		Storage storage = storageMapper.selectById(22);
+		Storage storage = storageMapper.selectById(23);
 		int row = inbillsService.createInbills(orderDesc, "宁夏", storage);
 		System.out.println(row);
 	}
@@ -69,16 +69,16 @@ public class TestRep {
 		int row = inbillsService.updateInbills(inbills);
 		System.out.println(row);
 	}
-	//-------------------------------outbills测试(第一个失败)+++++++++++++++++++++++++++=+
+	//-------------------------------outbills----------------------------------------
 	@Autowired
 	private OutbillsService outbillsService;
 	@Autowired
 	private OutbillsMapper outbillsMapper;
 	/**生成出库单*/
-	@Test//+++++++++++++++++++++++++++++++++++++++++++++
+	@Test
 	public void createOutbills() {
 		OrderDesc orderDesc = orderDescMapper.selectById(1);
-		Storage storage = storageMapper.selectById(1);
+		Storage storage = storageMapper.selectById(23);
 		int row = outbillsService.createOutbills(orderDesc, "北京", storage);
 		System.out.println(row);
 	}
