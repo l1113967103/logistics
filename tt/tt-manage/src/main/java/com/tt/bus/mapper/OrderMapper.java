@@ -10,7 +10,7 @@ import com.tt.pojo.Order;
 
 public interface OrderMapper extends BaseMapper<Order>{
 
-	//根据商品id查询订单id，根据订单id查询订单详情(为了生成运输单)
+	//根据货物id查询订单id，根据订单id查询订单详情(为了生成运输单)
 	@Select("select * from tb_order where id=(select tb_order_id from order_desc where id=#{id})")
 	Order findOrderByOrderDescId(@Param("id") Integer id);
 	/**web发送的订单号查询订单信息*/

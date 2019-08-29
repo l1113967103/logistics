@@ -60,7 +60,7 @@
 /* 运输表 */
 .order-box{
 	background: #ffffff;
-	width: 1020px;
+	width: 900px;
 	height: auto;
 	padding: 20px;
 	margin: 40px auto 0 auto;
@@ -93,7 +93,7 @@
 .order-box table tr td{
 	display: inline-block;
 	height: 52px;
-	width: 120px;
+	width: 125px;
 	padding: 5px 10px;
 	font-size: 24px;
 	line-height: 42px;

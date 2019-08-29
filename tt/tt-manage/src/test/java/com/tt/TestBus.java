@@ -43,7 +43,7 @@ public class TestBus {
 		System.out.println(order);
 	}
 	//----------------对orderDesc测试
-	/**生成入库单时分页查询所有商品信息*/
+	/**生成入库单时分页查询所有货物信息*/
 	@Autowired
 	private OrderDescService orderDescService;
 	@Test
@@ -51,7 +51,7 @@ public class TestBus {
 		PageObject<OrderDesc> pageObject = orderDescService.findOrderDescByPage(1);
 		System.err.println(pageObject);
 	}
-	/**出库时删除商品表信息*/
+	/**出库时删除货物表信息*/
 	@Test
 	public void delOrderDesc() {
 		int row = orderDescService.delOrderDesc(4);

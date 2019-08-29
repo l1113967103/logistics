@@ -54,15 +54,15 @@
 			<thead>
 				<tr>
 					<td>-</td>
-					<td>商品id</td>
-					<td>商品名称</td>
-					<td>商品类型</td>
-					<td>商品数量</td>
-					<td>商品重量</td>
-					<td>商品体积</td>
+					<td>货物id</td>
+					<td>货物名称</td>
+					<td>货物类型</td>
+					<td>货物数量</td>
+					<td>货物重量</td>
+					<td>货物体积</td>
 					<td>status</td>
-					<td>商品创建时间</td>
-					<td>商品修改时间</td>
+					<td style="width:200px;">货物创建时间</td>
+					<td style="width:200px;">货物修改时间</td>
 				</tr>
 			</thead>
 			<tbody id="tbodyId">
@@ -133,11 +133,33 @@
 				+ "<td>"+ row.weight+ "</td>"
 				+ "<td>"+ row.bulk+ "</td>"
 				+ "<td>"+ row.status+ "</td>"
-				+ "<td>"+ new Date(row.createdTime).toLocaleString()+ "</td>"
-				+ "<td>"+ new Date(row.modifiedTime).toLocaleString() + "</td>";
+				+ "<td style='width:200px;'>"+ fmtDate(row.createdTime)+ "</td>"
+				+ "<td style='width:200px;'>"+ fmtDate(row.modifiedTime)+ "</td>";
 		return tds;
 	}
 
+	function fmtDate(time){
+	    var date=new Date();
+	    var data = new Date(time);
+	    var year = data.getFullYear();  //获取年
+	    var month = data.getMonth() + 1;    //获取月
+	    var day = data.getDate(); //获取日
+	    var hours = data.getHours();
+	    var minutes = data.getMinutes();
+	    /* if (date.getFullYear()==year&&date.getMonth() + 1==month){
+	        if (date.getDate()==day){
+	            time = "今天" + " " + hours + ":" + minutes;
+	            return time;
+	        }
+	        if ((parseInt(date.getDate())-1)==day){
+	            time = "昨天" + " " + hours + ":" + minutes;
+	            return time;
+	        }
+	    } */
+		    time = year + "年" + month + "月" + day + "日" + " " + hours + ":" + minutes;
+		    return time;
+		}
+	
 	function doOutBills() {
 		var storageId = $("input[type='radio']:checked").val();
 		var outPlace = $("#input-box").val();
@@ -147,7 +169,8 @@
 		}
 		console.log("storageId:" + storageId);
 		console.log("outPlace:" + outPlace);
-		doSelectObjects(storageId,outPlace);
+		var flag = 0;
+		doSelectObjects(storageId,outPlace,flag);
 	}
 
 	function doInBills() {
@@ -159,7 +182,8 @@
 		}
 		console.log("storageId:" + storageId);
 		console.log("inputPlace:" + inputPlace);
-		doSelectObjects(storageId,inputPlace);
+		var flag = 1;
+		doSelectObjects(storageId,inputPlace,flag);
 	}
 	//删除以后修改当前页码值
 	function doSetPageCurrent() {
@@ -172,12 +196,12 @@
 		}
 	}
 	//执行日志删除操作
-	function doSelectObjects(storageId,place) {
+	function doSelectObjects(storageId,place,flag) {
 		var params = {"id":storageId,"place":place}
 		//1.获取选中的记录id
 		var idArray = doGetCheckedIds();
 		if (idArray.length == 0) {
-			alert("请先选择");
+			alert("请先选择货物");
 			return;
 		}
 		console.log("idArray", idArray)
@@ -185,11 +209,17 @@
 		//3.1 params
 		params.ids = idArray.toString();
 		//3.2 url
-		var url = "rep/doSelectObjects";
+		var inBillsUrl = "inbills/createInbills";
+		var outBillsUrl = "outbills/createOutbills";
+		//alert("flag:"+flag);
+		var url = flag==0?outBillsUrl:inBillsUrl;
+		//alert(url);
+		//return;
 		//3.3 request (发送post请求)
 		$.post(url, params, function(result) {
 			if (result.state == 1) {
-				alert(result.message);
+				alert("操作成功！！");
+				return;
 				doSetPageCurrent();
 			} else {
 				alert(result.message);

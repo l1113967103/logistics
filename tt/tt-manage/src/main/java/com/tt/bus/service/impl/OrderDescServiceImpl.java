@@ -21,9 +21,9 @@ public class OrderDescServiceImpl implements OrderDescService{
 	public PageObject<OrderDesc> findOrderDescByPage(Integer pageCurrent) {
 		Integer pageSize=5;//每页5条数据
 		Integer startIndex = (pageCurrent-1)*pageSize;
-		Integer count = orderDescMapper.selectCount(null);//查询所有商品数量
+		Integer count = orderDescMapper.selectCount(null);//查询所有货物数量
 		if(count==0)
-			throw new ServiceException("没有商品信息");
+			throw new ServiceException("没有货物信息");
 		List<OrderDesc> records = orderDescMapper.findOrderDescByPage(startIndex, pageSize);
 		int pageCount=(count-1)/pageSize+1;
 		return new PageObject<>(records, count, pageCount, pageCurrent, pageSize);

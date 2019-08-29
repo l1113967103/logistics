@@ -68,8 +68,8 @@ public class OrderServiceImpl implements OrderService{
 			if(row==0)
 				throw new ServiceException("审核订单失败");
 		}
-		//将审核通过的订单交给仓储部门进行商品入库，为了生成入库单
-		//查询商品id对应的orderid，order表中，审核状态为1的进行入库操作
+		//将审核通过的订单交给仓储部门进行货物入库，为了生成入库单
+		//查询货物id对应的orderid，order表中，审核状态为1的进行入库操作
 //		inbillsService.setOrder(order);
 		//			ObjectThreadLocal.setObject(order);
 //		return 1;
@@ -81,7 +81,7 @@ public Order findOrder(Integer orderDescId) {
 	Order order = orderMapper.findOrderByOrderDescId(orderDescId);
 	System.err.println(order);
 	if(order==null)
-		throw new ServiceException("该商品无对应的订单");
+		throw new ServiceException("该货物无对应的订单");
 	return order;
 }
 

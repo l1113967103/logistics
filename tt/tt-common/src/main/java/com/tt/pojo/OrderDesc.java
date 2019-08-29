@@ -16,15 +16,15 @@ import lombok.experimental.Accessors;
 @TableName("order_desc")
 public class OrderDesc extends BasePojo{
 	@TableId(type = IdType.AUTO)
-	private Integer id;//商品ID
+	private Integer id;//货物ID
 	private Integer tbOrderId;//订单ID
 	private Integer storageId;//仓库id
 	private Integer storageManageId;//库存id
-	private String name;//商品名称
-	private String kind;//商品种类
-	private Integer num;//商品数量
-	private Integer weight;//商品重量
-	private String bulk;//商品体积
+	private String name;//货物名称
+	private String kind;//货物种类
+	private Integer num;//货物数量
+	private Integer weight;//货物重量
+	private String bulk;//货物体积
 	private Integer status;//0.未入库1.已入库2.已出库
 	
 }

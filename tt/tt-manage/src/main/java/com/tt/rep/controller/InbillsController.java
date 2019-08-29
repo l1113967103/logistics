@@ -43,5 +43,11 @@ public class InbillsController {
 		return new JsonResult("delete ok"); 
 	}
 	
+	@RequestMapping("/createInbills")
+	@ResponseBody
+	public JsonResult createInbills(Integer id,String place,Integer... ids) {
+		int row = inbillsService.createInbills(id, place, ids);
+		return new JsonResult(row);
+	}
 	
 }

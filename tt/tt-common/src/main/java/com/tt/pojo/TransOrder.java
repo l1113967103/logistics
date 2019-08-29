@@ -19,7 +19,7 @@ public class TransOrder extends BasePojo{
 	@TableId(type = IdType.AUTO)
 	private Integer id;//运输单id
 	private Integer outbillsId;//出库单号
-	private Integer orderDescId;//商品id
+	private Integer orderDescId;//货物id
 	private Integer driverId;//司机id
 	private Integer vehicleId;//汽车id
 	private String outPlace;//出发地

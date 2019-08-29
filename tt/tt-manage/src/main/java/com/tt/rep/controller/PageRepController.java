@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tt.bus.service.OrderDescService;
 import com.tt.common.vo.JsonResult;
@@ -30,9 +31,10 @@ public class PageRepController {
 	}
 	
 	@RequestMapping("/doSelectObjects")
+	@ResponseBody
 	public JsonResult doSelectObjects(Integer id,String place,Integer... ids) {
-		
-		return null;
+//		storageService.(id,place,ids);
+		return new JsonResult();
 	}
 	
 	

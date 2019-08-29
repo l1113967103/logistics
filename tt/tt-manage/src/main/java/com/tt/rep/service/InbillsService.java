@@ -9,7 +9,7 @@ import com.tt.pojo.Storage;
 
 public interface InbillsService{
 	
-	/**进入页面时，返回商品信息和仓库信息*/
+	/**进入页面时，返回货物信息和仓库信息*/
 //	Map<String,Object> showRepertory();
 	/**生成入库单*/
 	int createInbills(Integer storageId, String inputPlace,Integer... orderDescIds);

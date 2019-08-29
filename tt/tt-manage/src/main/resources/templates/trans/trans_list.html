@@ -23,13 +23,17 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-				<td class="theadClass">运输单号</td>
+				<!-- <td class="theadClass">运输单号</td>
 				<td class="theadClass">运输司机</td>
 				<td class="theadClass">运输车辆</td>
 				<td class="theadClass">出发地点</td>
 				<td class="theadClass">目的地点</td>
+				<td class="theadClass">运输状态</td> -->
+				<td class="theadClass">运输单</td>
+				<td class="theadClass">出发地</td>
+				<td class="theadClass">目的地</td>
 				<td class="theadClass">运输状态</td>
-				<td class="theadClass" style="width:250px;">创建时间</td>
+				<td class="theadClass" style="width:300px;">创建时间</td>
 			</tr>
 			</thead>
 			<tbody id="tbodyId">
@@ -79,7 +83,6 @@
 		   $.getJSON(url,params,function(result){
 			   if(!result){
 				   alert("没有运输单");
-				   return;
 			   }
 			   //debugger
 			   console.log(result);
@@ -112,12 +115,10 @@
 	   function doCreateTransTds(row){
 		   console.log(row);
 		   var tds="<td>"+row.transOrderId+"</td>"+
-		     "<td>"+row.driverName+"</td>"+
-		     "<td>"+row.vehicleName+"</td>"+
 		     "<td>"+row.outPlace+"</td>"+
 		     "<td>"+row.destPlace+"</td>"+
 		     "<td>"+row.status+"</td>"+
-		     "<td style='width:250px;'>"+fmtDate(row.createdTime)+"</td>";
+		     "<td style='width:300px;'>"+fmtDate(row.createdTime)+"</td>";
 		     /* "<td>"+new Date(row.createdTime).toLocaleString()+"</td>" */
 	       return tds;
 	   }
@@ -220,17 +221,17 @@
 	}
 	function doCreateTds1(row) {
 		console.log(row);
-		var tOptions = "<option value='"+row.id+"'>出库单:"+row.id+"</option>";
+		var tOptions = "<option value='"+row.id+"'>"+row.id+"</option>";
 		return tOptions;
 	}
 	function doCreateTds2(row) {
 		console.log(row);
-		var tOptions = "<option value='"+row.id+"'>司机:"+row.name+"</option>";
+		var tOptions = "<option value='"+row.id+"'>"+row.name+"</option>";
 		return tOptions;
 	}
 	function doCreateTds3(row) {
 		console.log(row);
-		var tOptions = "<option value='"+row.id+"'>车辆:"+row.name +",类型:"+row.type+"</option>";
+		var tOptions = "<option value='"+row.id+"'>"+row.name +"</option>";
 		return tOptions;
 	}
 	/* 获得table标签为插入订单做准备 */

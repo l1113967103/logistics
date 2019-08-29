@@ -34,15 +34,15 @@ public class InbillsServiceImpl implements InbillsService{
 	private StorageService storageService;
 	@Autowired
 	private StorageMapper storageMapper;
-	//提交商品修改入库状态
+	//提交货物修改入库状态
 	@Autowired
 	private OrderDescMapper orderDescMapper;
-	//分页查询修改商品入库状态后商品信息
+	//分页查询修改货物入库状态后货物信息
 	@Autowired
 	private OrderDescService orderDescService;
 
 	private Order order = null;
-	/**在页面展示商品信息和库存信息*/
+	/**在页面展示货物信息和库存信息*/
 //	@Override
 //	@Transactional
 //	public Map<String,Object> showRepertory() {
@@ -50,9 +50,9 @@ public class InbillsServiceImpl implements InbillsService{
 //		//获取threadLocal中的order,通过order获取orderDesc
 //		Order order = getOrder();
 //		OrderDesc orderDesc = orderDescMapper.findOrderIdByOrderDesc(order.getId());
-//		orderDesc.setStatus(1).setModifiedTime(new Date());//表示商品已入库
-//		orderDescMapper.updateById(orderDesc);//改变商品入库信息状态
-//		//分页查询商品信息
+//		orderDesc.setStatus(1).setModifiedTime(new Date());//表示货物已入库
+//		orderDescMapper.updateById(orderDesc);//改变货物入库信息状态
+//		//分页查询货物信息
 //		PageObject<OrderDesc> orderDescByPage = orderDescService.findOrderDescByPage(1);//从第一开始
 //		map.put("orderDesc", orderDescByPage);
 //		PageObject<Storage> storageByPage = storageService.findStorageByPage(null, 1);
@@ -67,7 +67,7 @@ public class InbillsServiceImpl implements InbillsService{
 		try {
 			List<OrderDesc> orderDescList = orderDescMapper.selectBatchIds(Arrays.asList(orderDescIds));
 			if(orderDescList==null||orderDescList.size()==0)
-				throw new ServiceException("请选择商品信息");
+				throw new ServiceException("请选择货物信息");
 			Storage storage = storageMapper.selectById(storageId);
 			if(storage==null)
 				throw new ServiceException("该仓库不存在");
@@ -80,7 +80,7 @@ public class InbillsServiceImpl implements InbillsService{
 				if(row==0)
 					throw new RuntimeException("形成入库单失败");
 			}
-			//商品开始入库
+			//货物开始入库
 			StorageManage storageManage = new StorageManage(null, storage.getId(), null, null, new Date(), new Date());
 			for (OrderDesc orderDesc2 : orderDescList) {
 				storageManage.setOrderDescKind(orderDesc2.getKind()).setOrderDescNum(orderDesc2.getNum())
@@ -88,10 +88,10 @@ public class InbillsServiceImpl implements InbillsService{
 				int row1 = storageManageMapper.insert(storageManage);
 				if(row1==0)
 					throw new RuntimeException("入库失败");
-				orderDesc2.setStatus(1).setStorageManageId(storageManage.getId()).setStorageId(storage.getId());//将商品存放仓库的id和库存id添加到商品表中
+				orderDesc2.setStatus(1).setStorageManageId(storageManage.getId()).setStorageId(storage.getId());//将货物存放仓库的id和库存id添加到货物表中
 				int rowOrderDesc = orderDescMapper.updateById(orderDesc2);
 				if(rowOrderDesc==0)
-					throw new ServiceException("商品入库失败");
+					throw new ServiceException("货物入库失败");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

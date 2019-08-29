@@ -11,7 +11,7 @@ import com.tt.pojo.OrderDesc;
 
 public interface OrderDescMapper extends BaseMapper<OrderDesc>{
 
-	/**分页查询全部商品信息,显示在生成入库单时的信息*/
+	/**分页查询全部货物信息,显示在生成入库单时的信息*/
 	@Select("select * from order_desc order by modified_time desc limit #{startIndex},#{rows}")
 	List<OrderDesc> findOrderDescByPage(@Param("startIndex")Integer startIndex,@Param("rows") Integer rows);
 	//通过orderId查询orderDesc

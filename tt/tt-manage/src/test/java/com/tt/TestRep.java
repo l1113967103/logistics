@@ -36,7 +36,7 @@ public class TestRep {
 	@Autowired
 	private StorageMapper storageMapper;
 	//-------------------------------inbills测试(第1个)++++++++++++++++++++++++++++++
-	/**进入页面时，返回商品信息和仓库信息*/
+	/**进入页面时，返回货物信息和仓库信息*/
 //	@Test//*************************************
 //	public void showRepertory() {
 //		Map<String, Object> map = inbillsService.showRepertory();
@@ -75,13 +75,13 @@ public class TestRep {
 	@Autowired
 	private OutbillsMapper outbillsMapper;
 	/**生成出库单*/
-	@Test
-	public void createOutbills() {
-		OrderDesc orderDesc = orderDescMapper.selectById(1);
-		Storage storage = storageMapper.selectById(23);
-		int row = outbillsService.createOutbills(orderDesc, "北京", storage);
-		System.out.println(row);
-	}
+//	@Test
+//	public void createOutbills() {
+//		OrderDesc orderDesc = orderDescMapper.selectById(1);
+//		Storage storage = storageMapper.selectById(23);
+//		int row = outbillsService.createOutbills(orderDesc, "北京", storage);
+//		System.out.println(row);
+//	}
 	//查询全部信息,分页查询
 	@Test
 	public void findInbillsByPage() {

@@ -9,8 +9,8 @@ import com.tt.pojo.Storage;
 
 public interface OutbillsService {
 
-	/**生成出库单*/
-	int createOutbills(OrderDesc orderDesc,String outPlace,Storage storage);
+	
+//	int createOutbills(OrderDesc orderDesc,String outPlace,Storage storage);
 //	List<Outbills> transOutbills();
 	//查询全部信息,分页查询
 	PageObject<Outbills> findInbillsByPage(Integer pageCurrent);
@@ -20,5 +20,7 @@ public interface OutbillsService {
 	int updateOutbills(Outbills outbills);
 	/**查询outbills的id,用于生成运输单*/
 	List<Outbills> findOutbillsId();
+	/**生成出库单*/
+	int createOutbills(Integer id, String place, Integer[] ids);
 
 }

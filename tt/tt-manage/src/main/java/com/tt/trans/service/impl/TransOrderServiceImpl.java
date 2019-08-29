@@ -107,11 +107,8 @@ public class TransOrderServiceImpl implements TransOrderService{
 		if(transOrderList==null||transOrderList.size()==0)
 			throw new ServiceException("没有运输单信息");
 		for (TransOrder transOrder : transOrderList) {
-			System.out.println("transOrder:"+transOrder);
-			System.out.println("driver:"+transOrder.getDriverId());
-			showTransOrder.setTransOrderId(transOrder.getId()).setDriverName(driverMapper.selectById(transOrder.getDriverId()).getName())
-			.setVehicleName(vehicleMapper.selectById(transOrder.getVehicleId()).getName())
-			.setOutPlace(transOrder.getOutPlace()).setDestPlace(transOrder.getDestPlace()).setStatus(0).setCreatedTime(new Date());
+			showTransOrder.setTransOrderId(transOrder.getId()).setOutPlace(transOrder.getOutPlace())
+			.setDestPlace(transOrder.getDestPlace()).setStatus(0).setCreatedTime(new Date());
 			list.add(showTransOrder);
 		}
 		return list;

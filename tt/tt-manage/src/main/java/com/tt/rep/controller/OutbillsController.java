@@ -37,7 +37,6 @@ public class OutbillsController {
 		PageObject<Outbills> inbillsByPage = outbillsService.findInbillsByPage(pageCurrent);
 		return new JsonResult(inbillsByPage);
 	}
-	
 
 	/**删除司机信息*/
 	@RequestMapping("/doDeleteObject")
@@ -54,4 +53,10 @@ public class OutbillsController {
 		return new JsonResult(outbillsList);
 	}
 	
+	@RequestMapping("/createOutbills")
+	@ResponseBody
+	public JsonResult createOutbills(Integer id,String place,Integer... ids) {
+		int row = outbillsService.createOutbills(id, place, ids);
+		return new JsonResult(row);
+	}
 }

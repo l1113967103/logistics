@@ -19,16 +19,16 @@ public class DubboOrderServiceImpl implements DubboOrderService{
 	
 	private OrderDescMapper orderDescMapper;
 
-	/**根据商品id查询order(订单)信息*/
+	/**根据货物id查询order(订单)信息*/
 	@Override
 	public Order findOrderByOrderNumber(String orderNumber) {
 		Order order = orderMapper.findOrderByOrderNumber(orderNumber);
 		if(order==null||"".equals(order.getOrderNumber()))
-			throw new RuntimeException("没有该商品的订单信息");
+			throw new RuntimeException("没有该货物的订单信息");
 		return order;
 	}
 
-	//新增订单信息,同时新增商品信息
+	//新增订单信息,同时新增货物信息
 	@Override
 	@Transactional
 	public Map<Integer,String> addOrder(Order order) {
@@ -37,10 +37,10 @@ public class DubboOrderServiceImpl implements DubboOrderService{
 		try {
 			String orderNumber = UUID.randomUUID().toString().replaceAll("-", "");
 			order.setStatus(0).setCreatedTime(new Date()).setModifiedTime(new Date());
-			//显示商品未审核
+			//显示货物未审核
 			row = orderMapper.insert(order);
 			OrderDesc orderDesc = orderDescMapper.findOrderIdByOrderDesc(order.getId());
-			orderDesc.setStatus(0);//显示商品未入库
+			orderDesc.setStatus(0);//显示货物未入库
 			int row1 = orderDescMapper.insert(orderDesc);
 			if(row==0||row1==0)
 				throw new RuntimeException("订单添加失败");

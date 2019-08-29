@@ -8,20 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tt.bus.mapper.OrderDescMapper;
-import com.tt.bus.service.OrderDescService;
 import com.tt.common.vo.PageObject;
 import com.tt.exception.ServiceException;
-import com.tt.pojo.Inbills;
 import com.tt.pojo.OrderDesc;
 import com.tt.pojo.Outbills;
 import com.tt.pojo.Storage;
 import com.tt.pojo.StorageManage;
 import com.tt.rep.mapper.OutbillsMapper;
 import com.tt.rep.mapper.StorageManageMapper;
+import com.tt.rep.mapper.StorageMapper;
 import com.tt.rep.service.OutbillsService;
-import com.tt.rep.service.StorageService;
 @Service
 public class OutbillsServiceImpl implements OutbillsService{
 
@@ -31,51 +28,63 @@ public class OutbillsServiceImpl implements OutbillsService{
 	private StorageManageMapper storageManageMapper;
 	//查询仓库
 	@Autowired
-	private StorageService storageService;
-	//提交商品修改入库状态
+	private StorageMapper storageMapper;
+	//提交货物修改入库状态
 	@Autowired
 	private OrderDescMapper orderDescMapper;
-	//分页查询修改商品入库状态后商品信息
-	@Autowired
-	private OrderDescService orderDescService;
+	//分页查询修改货物入库状态后货物信息
+//	@Autowired
+//	private OrderDescService orderDescService;
+	/**
+	 * 仓库id,出库地place,货物ids
+	 */
 	@Override
 	@Transactional
-	public int createOutbills(OrderDesc orderDesc, String outPlace, Storage storage) {
+	public int createOutbills(Integer id, String place, Integer[] ids) {
+		Storage storage = storageMapper.selectById(id);
+		if(storage==null)
+			throw new ServiceException("该仓库不存在");
+		List<OrderDesc> orderDescList = orderDescMapper.selectBatchIds(Arrays.asList(ids));
+		if(orderDescList==null||orderDescList.size()==0)
+			throw new ServiceException("没有该货物");
 		int row = 0;
 		try {
 			//生成出库单
-			Outbills outbills = new Outbills(null,storage.getId(), outPlace, orderDesc.getId(), orderDesc.getKind(), orderDesc.getNum(), new Date());
+			Outbills outbills = new Outbills(null,storage.getId(), place, null, null, null, new Date());
 			outbills.setCreatedTime(new Date()).setModifiedTime(outbills.getCreatedTime());
-			row = outbillsMapper.insert(outbills);
-			if(row==0)
-				throw new RuntimeException("形成出库单失败");
-			//出库单出库成功，修改商品状态为已出库,此时商品表中含有仓库id
-			orderDesc.setStatus(2);
-			int rowOrderDesc = orderDescMapper.updateById(orderDesc);
-			if(rowOrderDesc==0)
-				throw new ServiceException("商品出库失败");
-			//商品开始出库
-			if(orderDesc.getStorageId()!=storage.getId())
-				throw new ServiceException("该仓库中没有该商品");
-			if(orderDesc.getStorageManageId()==null)
-				throw new ServiceException("该商品没有入库存");
-			//查询仓库id为。。。的库存，然后将该商品类型减一
-			//			通过库存id，商品种类，做商品数量的减少
-			StorageManage storageManage = storageManageMapper.selectById(orderDesc.getStorageManageId());
-			String orderDescKind = storageManage.getOrderDescKind();
-			if(!orderDescKind.equals(orderDesc.getKind()))//通过该库存中的该商品名称和页面传来的商品名称进行比对
-				throw new ServiceException("库存中没有该商品");
-			Integer storageManageNum = storageManage.getOrderDescNum();
-			if(storageManageNum<orderDesc.getNum())
-				throw new ServiceException("出库数量异常，库存不足");
-			storageManageNum -= orderDesc.getNum();//库存减少
-			if(storageManageNum==0)//如果该商品数量为0，删除库存中该商品记录
-				storageManageMapper.deleteById(storageManage.getId());
-			storageManage.setOrderDescNum(storageManageNum);
-			//修改出库后的商品数量，并存储到商品库中
-			int row1 = storageManageMapper.updateById(storageManage);
-			if(row1==0)
-				throw new RuntimeException("出库失败");
+			for (OrderDesc orderDesc : orderDescList) {
+				outbills.setOrderDescId(orderDesc.getId()).setOrderDescKind(orderDesc.getKind()).setOrderDescNum(orderDesc.getNum());
+				row = outbillsMapper.insert(outbills);
+				if(row==0)
+					throw new ServiceException("形成出库单失败");
+				//出库单出库成功，修改货物状态为已出库,此时货物表中含有仓库id
+				orderDesc.setStatus(2);
+				int rowOrderDesc = orderDescMapper.updateById(orderDesc);
+				if(rowOrderDesc==0)
+					throw new ServiceException("货物出库失败");
+				//货物开始出库
+				if(orderDesc.getStorageId()!=storage.getId())
+					throw new ServiceException("该仓库中没有该货物");
+				if(orderDesc.getStorageManageId()==null)
+					throw new ServiceException("该货物没有入库存");
+				//查询仓库id为。。。的库存，然后将该货物类型减一
+				//			通过库存id，货物种类，做货物数量的减少
+				StorageManage storageManage = storageManageMapper.selectById(orderDesc.getStorageManageId());
+				String orderDescKind = storageManage.getOrderDescKind();
+				if(!orderDescKind.equals(orderDesc.getKind()))//通过该库存中的该货物名称和页面传来的货物名称进行比对
+					throw new ServiceException("库存中没有该货物");
+				Integer storageManageNum = storageManage.getOrderDescNum();
+				if(storageManageNum<orderDesc.getNum())
+					throw new ServiceException("出库数量异常，库存不足");
+				storageManageNum -= orderDesc.getNum();//库存减少
+				if(storageManageNum==0)//如果该货物数量为0，删除库存中该货物记录
+					storageManageMapper.deleteById(storageManage.getId());
+				storageManage.setOrderDescNum(storageManageNum);
+				//修改出库后的货物数量，并存储到货物库中
+				int row1 = storageManageMapper.updateById(storageManage);
+				if(row1==0)
+					throw new ServiceException("出库失败");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

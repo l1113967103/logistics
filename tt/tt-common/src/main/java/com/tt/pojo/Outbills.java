@@ -22,8 +22,8 @@ public class Outbills extends BasePojo{
 	private Integer id;//出库单id
 	private Integer storageId;//出库仓库id
 	private String outputPlace;//出库地点
-	private Integer orderDescId;//商品id
-	private String orderDescKind;//商品类型
+	private Integer orderDescId;//货物id
+	private String orderDescKind;//货物类型
 	private Integer orderDescNum;//订单数量
 	private Date outputTime;//出库时间
 }

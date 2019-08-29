@@ -38,7 +38,7 @@ public class PageTransController {
 	}
 	/**运输单管理*/
 	@RequestMapping("/doTransOrderListUI")
-	public String doTransOrderListUI(Model model) {
+	public String doTransOrderListUI() {
 //		List<Storage> allStorage = storageService.findAllStorage();
 //		List<OrderDesc> allOrderDesc = orderDescService.findAllOrderDesc();
 //		List<Vehicle> allVehicle = vehicleService.findAllVehicle();
@@ -51,7 +51,7 @@ public class PageTransController {
 //		List<Storage> list = storageService.findAllStorage();
 //		model.addAttribute("list",list);
 //		return "test";
-		return "trans/trans_list";
+		return "trans/trans_orders";
 	}
 	
 }
