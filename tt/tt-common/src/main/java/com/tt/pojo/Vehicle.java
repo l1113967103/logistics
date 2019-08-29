@@ -22,6 +22,6 @@ public class Vehicle extends BasePojo{
 	private Integer transOrderId;//运输单id
 	private String name;
 	private String type;
-	private Integer status;//1.表示车辆正常。0.表示车辆在维修中
+	private Integer status;//0.表示车辆正常。1.表示车辆在维修中
 	private Date createdTime;//创建时间
 }

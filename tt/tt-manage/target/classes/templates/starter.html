@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -211,7 +211,7 @@ desired effect
 										<a href="#" class="btn btn-default btn-flat">Profile</a>
 									</div>
 									<div class="pull-right">
-										<a href="doLogout.do" class="btn btn-default btn-sign-out">Sign
+										<a href="doLogout" class="btn btn-default btn-sign-out">Sign
 											out</a>
 									</div>
 								</li>
@@ -449,8 +449,8 @@ desired effect
 	  doLoadUI("load-order-select","order/doOrderListUI");
 	  
 	  doLoadUI("load-store-id","rep/doRepListUI");
-	  doLoadUI("load-managein-id","rep/doInbillsListUI");
-	  doLoadUI("load-manageout-id","rep/doOutbillsListUI");
+	  doLoadUI("load-managein-id","inbills/doInbillsListUI");
+	  doLoadUI("load-manageout-id","outbills/doOutbillsListUI");
 	  
 	  doLoadUI("load-car-id","trans/doVehicleListUI");
 	  doLoadUI("load-dri-id","trans/doDriverListUI");

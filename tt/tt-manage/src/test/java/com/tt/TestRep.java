@@ -47,7 +47,7 @@ public class TestRep {
 	public void createInbills() {
 		OrderDesc orderDesc = orderDescMapper.selectById(1);
 		Storage storage = storageMapper.selectById(23);
-		int row = inbillsService.createInbills(orderDesc, "宁夏", storage);
+		int row = inbillsService.createInbills(1, "宁夏", 1);
 		System.out.println(row);
 	}
 	//查询全部信息,分页查询

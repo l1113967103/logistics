@@ -49,6 +49,7 @@
 	right: 30px;
 	top: 9px;
 }
+
 .orderBtn:hover{
 	background: red;
 	color: #ffffff;
@@ -56,10 +57,10 @@
 
 
 
-/* 订单表 */
+/* 运输表 */
 .order-box{
 	background: #ffffff;
-	width: 600px;
+	width: 1020px;
 	height: auto;
 	padding: 20px;
 	margin: 40px auto 0 auto;
@@ -69,6 +70,8 @@
 	margin: 0 auto;
 	
 }
+
+
 .order-box span h2{
 	height: 60px;
 	line-height: 60px;
@@ -82,7 +85,7 @@
 	/* border-top: rgb(191, 191, 191) solid 1px; */
 }
 .order-box table tr:last-child{
-	/* border-bottom: rgb(191, 191, 191) solid 1px; */
+	/* border-bottom: rgb(191, 191, 191) solid 1px;*/
 }
 
 
@@ -90,7 +93,7 @@
 .order-box table tr td{
 	display: inline-block;
 	height: 52px;
-	width: 140px;
+	width: 120px;
 	padding: 5px 10px;
 	font-size: 24px;
 	line-height: 42px;

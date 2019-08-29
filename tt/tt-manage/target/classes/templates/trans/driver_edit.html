@@ -1,0 +1,109 @@
+<!-- Horizontal Form -->
+ <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">新增司机</h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <form class="form-horizontal">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="nameId" class="col-sm-2 control-label">司机姓名</label>
+
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="name" id="nameId" placeholder="司机姓名">
+            </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <button type="button" class="btn btn-default btn-cancel">Cancel</button>
+          <button type="button" class="btn btn-info pull-right btn-save">Save</button>
+        </div>
+        <!-- /.box-footer -->
+      </form>
+    </div>
+    <script type="text/javascript" src="bower_components/ztree/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+    	$(".box-footer")
+    	.on("click",".btn-save",doSaveOrUpdate)
+    	.on("click",".btn-cancel",doCancel);
+    	 //获取mainContentId上值
+  	  var rowData=
+  	  $("#mainContentId").data("rowData");
+  	  //假如有值说明是修改,则基于此值初始化编辑页面.
+  	  if(rowData)doInitEditFormData(rowData);
+    	
+    });
+    function doInitEditFormData(data){
+    	console.log("data",data);
+    	//1.初始化角色自身信息
+    	$("#nameId").val(data.name);
+    	$("#noteId").val(data.note);
+    	//2.初始化菜单信息
+    	//2.1展开树节点
+    	zTree.expandAll(true);
+    	//2.2获取角色对应的菜单id
+    	var menuIds=data.menuIds;
+    	//2.3迭代所有菜单id
+    	for(var i in menuIds){
+    	  //基于菜单id获取ztree中的node节点
+    	  var node=
+    	  zTree.getNodeByParam("id",menuIds[i]);
+    	  //让节点选中
+    	  zTree.checkNode(node,true,false);
+    	}
+    }
+  //回到列表页面
+    function doCancel(){
+  	var url="trans/doDriverListUI";
+  	$("#mainContentId").load(url);  
+    }
+    
+   /*  function doCancel(){
+    	$("#mainContentId").removeData("rowData");
+    	$("#mainContentId").load("trans/doDriverListUI");
+     }
+     */
+    function doSaveOrUpdate(){
+    	//1.参数(表单数据)
+    	var params=doGetEditFormData();
+    	if(!params.name.trim()){
+    		alert("司机名不能为空!");
+    		return;
+    	}
+    	var data=$("#mainContentId").data("rowData");
+    	if(data)params.id=data.id;
+    	//2.url
+    	var insertUrl="driver/doSaveObject";
+    	var updateUrl="driver/doUpdateObject";
+    	console.log("data:"+data);
+    	var url=data?updateUrl:insertUrl;
+    	//3.ajax request
+    	$.post(url,params,function(result){
+    		if(result.state==1){
+    		   alert(result.message);
+    		   doCancel();
+    		}else{
+    		   alert(result.message);
+    		}
+    	})
+    }
+    function doGetEditFormData(){
+    	//1.获取角色自身信息
+    	var params={
+    		name:$("#nameId").val()
+    	}
+    	return params;
+    }
+
+</script>
+    
+    
+    
+    
+    
+    
+    
+    

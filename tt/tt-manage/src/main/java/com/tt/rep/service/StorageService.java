@@ -1,5 +1,7 @@
 package com.tt.rep.service;
 
+import java.util.List;
+
 import com.tt.common.vo.PageObject;
 import com.tt.pojo.Storage;
 
@@ -12,4 +14,6 @@ public interface StorageService {
 	int updateStorage(Storage storage);
 	/**删除仓库信息*/
 	int delStorage(Integer... storageId);
+	
+	List<Storage> findAllStorage();
 }

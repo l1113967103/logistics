@@ -7,14 +7,12 @@
 				<div class="box-tools">
 					<div class="input-group input-group-sm" style="width: 350px;">
 						<input type="text" name="table_search" id="searchNameId"
-							class="form-control pull-right" placeholder="仓库名">
+							class="form-control pull-right" placeholder="显示全部出库单" readonly="readonly">
 
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default btn-search">
                                 <i class="fa fa-search"></i>
 							</button>
-							<button type="button" class="btn btn-default btn-add">添加</button>
-							<button type="button" class="btn btn-default btn-update">修改</button>
 						</div>
 					</div>
 				</div>
@@ -24,8 +22,8 @@
 				<table class="table table-hover">
 					<thead>
 						<tr style="background: #d6ecf0">
+							<th></th>
 							<th>出库单ID</th>
-							<th>出库仓库ID</th>
 							<th>出库地点</th>
 							<th>商品ID</th>
 							<th>商品类型</th>
@@ -33,6 +31,7 @@
 							<th>出库时间</th>
 							<th>创建时间</th>
 							<th>更改时间</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody id="tbodyId"></tbody>
@@ -52,9 +51,30 @@
 	   });
 	   $(".input-group-btn")
 	   .on("click",".btn-search",doQueryObjects)
-	   .on("click",".btn-add,.btn-update",doLoadEditUI);
-	   $("tbody").on("click",".btn-status",doStatusById);
+	   $("tbody").on("click",".btn-status",doStatusById)
+	   .on("click",".btn-delete",doDeleteObject);
    });
+   
+   function doDeleteObject(){
+		//1.url
+		var url="outbills/doDeleteObject";
+		//2.params
+		var id=upimg();
+		var params={"id":id};
+		//3.post
+		$.post(url,params,function(result){
+			if(result.state==1){
+				alert(result.message);
+				doGetObjects();
+			}else{
+				alert(result.message);
+			}
+		})
+	}
+   
+   function upimg(){
+	   return event.target.id;
+	   }
    
    function doLoadEditUI(){
 	   //1.判定点击的对象
@@ -79,7 +99,7 @@
 	   //1.params
 	   var params={"id":id};
 	   //2.url
-	   var url="rep/doFindObjectById";
+	   var url="outbills/doFindObjectById";
 	   //3.ajax request
 	   $.getJSON(url,params,function(result){//JsonResult
 		   if(result.state==1){
@@ -140,7 +160,7 @@
    }
    //页面加载完成异步加载当前页数据
    function doGetObjects(){
-	   var url="rep/doFindPageObjects";
+	   var url="outbills/doFindPageObjects";
 	   var pageCurrent=$("#pageId").data("pageCurrent");
 	   if(!pageCurrent)pageCurrent=1;
 	   var params={"pageCurrent":pageCurrent}
@@ -176,14 +196,15 @@
    function doCreateTds(row){
 	   console.log(row);
 	   var tds="<td><input type='radio' name='radioId' value='"+row.id+"' ></td>"+
-	     "<td>"+row.storageId+"</td>"+
+	     "<td>"+row.id+"</td>"+
 	     "<td>"+row.outputPlace+"</td>"+
 	     "<td>"+row.orderDescId+"</td>"+
 		 "<td>"+row.orderDescKind+"</td>"+
 		 "<td>"+row.orderDescNum+"</td>"+
-		 "<td>"+row.outputTime+"</td>"+
+		 "<td>"+new Date(row.outputTime).toLocaleString()+"</td>"+
 	     "<td>"+new Date(row.createdTime).toLocaleString()+"</td>"+
 	     "<td>"+new Date(row.modifiedTime).toLocaleString()+"</td>"+
+	     "<td><button type='button' id='"+row.id+"' class='btn btn-default btn-delete'>删除</button></td>";
        return tds;
    }
 </script>

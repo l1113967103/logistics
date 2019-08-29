@@ -12,7 +12,7 @@ public interface InbillsService{
 	/**进入页面时，返回商品信息和仓库信息*/
 //	Map<String,Object> showRepertory();
 	/**生成入库单*/
-	int createInbills(OrderDesc orderDesc,String inputPlace,Storage storage);
+	int createInbills(Integer storageId, String inputPlace,Integer... orderDescIds);
 	//查询全部信息,分页查询
 	PageObject<Inbills> findInbillsByPage(Integer pageCurrent);
 	/**删除入库单*/

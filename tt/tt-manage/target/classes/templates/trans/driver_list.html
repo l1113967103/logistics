@@ -7,7 +7,7 @@
 				<div class="box-tools">
 					<div class="input-group input-group-sm" style="width: 350px;">
 						<input type="text" name="table_search" id="searchNameId"
-							class="form-control pull-right" placeholder="id">
+							class="form-control pull-right" placeholder="司机姓名">
 
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default btn-search">
@@ -24,12 +24,11 @@
 				<table class="table table-hover">
 					<thead>
 						<tr style="background: #d6ecf0">
-							<th>ID</th>
-							<th>名称</th>
-							<th>入库地点</th>
+							<th></th>
+							<th>司机姓名</th>
 							<th>状态</th>
-							<th>创建时间</th>
-							<th>更改时间</th>
+							<th>操作</th>
+							<!-- <th>入职时间</th> -->
 						</tr>
 					</thead>
 					<tbody id="tbodyId"></tbody>
@@ -50,47 +49,69 @@
 	   $(".input-group-btn")
 	   .on("click",".btn-search",doQueryObjects)
 	   .on("click",".btn-add,.btn-update",doLoadEditUI);
-	   $("tbody").on("click",".btn-status",doStatusById);
+	   
+	   
+	   $("tbody").on("click",".btn-status",doStatusById)
+	   .on("click",".btn-delete",doDeleteObject);
    });
    
-   function doLoadEditUI(){
-	   //1.判定点击的对象
-	   var title;
-	   if($(this).hasClass("btn-add")){
-		   title="添加";
-		   doLoadPage(title);
-	   }else if($(this).hasClass("btn-update")){
-		   title="修改";
-		   var id=doGetCheckedId();
-		   console.log("id="+id)
-		   if(!id){
-			  alert("请先选择");
-			  return;
-		   }
-		   //基于id进行查询并加载编辑页面
-		   doFindObjectById(id,title);
+   function doDeleteObject(){
+		//1.url
+		var url="driver/doDeleteObject";
+		//2.params
+		var id=upimg();
+		var params={"id":id};
+		//3.post
+		$.post(url,params,function(result){
+			if(result.state==1){
+				alert(result.message);
+				doGetObjects();
+			}else{
+				alert(result.message);
+			}
+		})
+	}
+   
+   function upimg(){
+	   return event.target.id;
 	   }
-   }
    
-   function doFindObjectById(id,title){
-	   //1.params
-	   var params={"id":id};
-	   //2.url
-	   var url="driver/doFindObjectById";
-	   //3.ajax request
-	   $.getJSON(url,params,function(result){//JsonResult
-		   if(result.state==1){
-			  $("#mainContentId").data("rowData",result.data); 
-	          doLoadPage(title);
-		   }else{
-			  alert(result.message);
-		   }
-	   });
-   }
    
-   function doGetCheckedId(){
-	 return $("tbody input[name='radioId']:checked").val();
+ //异步加载编辑页面
+   function doLoadEditUI(){
+   	//1.定义标题
+   	var title;
+   	if($(this).hasClass("btn-add")){
+   		title="添加司机信息";
+   	}else{
+   		//设置标题
+   		title="修改司机信息";
+   		//获取选中的当前行的记录(从tr对象上获取)
+   		var rowData=doGetCheckedItem();
+   		if(!rowData){
+   			alert("请先选择");
+   			return;
+   		}
+   		console.log("list.rowData",rowData);
+   		//重新绑定数据到$("#mainContentId")
+   		$("#mainContentId").data("rowData",rowData);
+   	}
+   	//2.异步加载编辑页面
+   	var url="driver/doDriverEditUI";
+   	$("#mainContentId").load(url,function(){
+   		$(".box-title").html(title);
+   	});//假如"#mainContentId"这个位置有页面则replace
    }
+
+   function doGetCheckedItem(){
+   	var tr=$("tbody input[type='radio']:checked")
+   	       .parents("tr");
+   	//这个值是在jquery.treegrid.extension.js中绑定的
+   	if(tr)return tr.data("rowData");
+   }
+ 
+   
+   
    function doLoadPage(title){
 	   var url="driver/doScenicSpotEditUI"
 	   $("#mainContentId").load(url,function(){
@@ -175,9 +196,7 @@
 	   var tds="<td><input type='radio' name='radioId' value='"+row.id+"' ></td>"+
 	     "<td>"+row.name+"</td>"+
 		 "<td>"+(row.status?"已分配":"未分配")+"</td>"+
-	     "<td>"+new Date(row.createdTime).toLocaleString()+"</td>"+
-	     "<td>"+new Date(row.modifiedTime).toLocaleString()+"</td>"+
-		 "<td><button type='button' class='btn btn-default btn-valid'>"+(row.status?"已分配":"未分配")+"</button></td>"; 
+		 "<td><button type='button' id='"+row.id+"' class='btn btn-default btn-delete'>删除</button></td>"; 
        return tds;
    }
 </script>

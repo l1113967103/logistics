@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tt.bus.mapper.OrderDescMapper;
 import com.tt.bus.service.OrderDescService;
 import com.tt.common.vo.PageObject;
@@ -113,6 +114,14 @@ public class OutbillsServiceImpl implements OutbillsService{
 		if(rows==0)
 			throw new ServiceException("修改出库单信息失败");
 		return rows;
+	}
+	//查看出库单id
+	@Override
+	public List<Outbills> findOutbillsId() {
+		List<Outbills> outbillsList = outbillsMapper.selectList(null);
+		if(outbillsList==null||outbillsList.size()==0)
+			throw new ServiceException("目前没有出库单");
+		return outbillsList;
 	}
 
 }

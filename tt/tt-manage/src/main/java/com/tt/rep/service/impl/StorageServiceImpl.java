@@ -76,5 +76,11 @@ public class StorageServiceImpl implements StorageService{
 			throw new ServiceException("记录可能已经不存在");
 		return rows;
 	}
+	/**查询所有storage，为运输单*/
+	@Override
+	public List<Storage> findAllStorage() {
+		List<Storage> storageList = storageMapper.selectList(null);
+		return storageList;
+	}
 
 }

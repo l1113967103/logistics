@@ -80,4 +80,20 @@ public class VehicleServiceImpl implements VehicleService{
 		return rows;
 	}
 
+	@Override
+	public Vehicle findObjectById(Integer id) {
+		Vehicle vehicle = vehicleMapper.selectById(id);
+		return vehicle;
+	}
+	//用于生成运输单的下拉框。0.空闲中1.维修中
+	@Override
+	public List<Vehicle> findAllVehicle() {
+		QueryWrapper<Vehicle> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("status", 0);
+		List<Vehicle> vehicleList = vehicleMapper.selectList(queryWrapper);
+		if(vehicleList==null||vehicleList.size()==0)
+			throw new ServiceException("没有空闲车辆");
+		return vehicleList;
+	}
+
 }

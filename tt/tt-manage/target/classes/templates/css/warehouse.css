@@ -121,8 +121,8 @@ body::-webkit-scrollbar {
 }
 .storage-table table tr td{
 	display: inline-block;
-	height: 42px;
-	width: 100px;
+	height: 53px;
+	width: 240px;
 	font-size: 16px;
 	line-height: 42px;
 	text-align: center;
@@ -144,8 +144,8 @@ body::-webkit-scrollbar {
 }
 .orderdesc-table table tr td{
 	display: inline-block;
-	height: 42px;
-	width: 100px;
+	height: 60px;
+	width: 130px;
 	font-size: 16px;
 	line-height: 42px;
 	text-align: center;

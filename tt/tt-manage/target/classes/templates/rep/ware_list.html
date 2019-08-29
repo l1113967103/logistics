@@ -31,103 +31,207 @@
 		<table>
 			<tr>
 		        <td>-</td>
-		        <td>id</td>
-		        <td>name</td>
-		        <td>addr</td>
-		        <td>tel</td>
-		        <td>created-time</td>
-		        <td>modified-time</td>
+		        <td>仓库id</td>
+		        <td>仓库名称</td>
+		        <td>仓库地址</td>
+		        <td>创建时间</td>
+		        <td>修改时间</td>
     		</tr>
-			<tr>
+			<tr th:each=" list:${storageList}">
 		        <td>
-		        	<input type="radio" checked="checked" name="storage"/>
+		        	<input type="radio" checked="checked" name="storage" th:value="${list.id}"/>
 		       	</td>
-		        <td>1</td>
-		        <td>牛云</td>
-		        <td>广东</td>
-		        <td>8325727</td>
-		        <td>2019-08-26</td>
-		        <td>2019-08-26</td>
-    		</tr>
-			<tr>
-		        <td>
-		        	<input type="radio" name="storage"/>
-		       	</td>
-		        <td>1</td>
-		        <td>牛云</td>
-		        <td>广东</td>
-		        <td>8325727</td>
-		        <td>2019-08-26</td>
-		        <td>2019-08-26</td>
+		       	<td th:text="${list.id}"></td>
+		       	<td th:text="${list.name}"></td>
+		       	<td th:text="${list.addr}"></td>
+		       	<td th:text="${list.createdTime}"></td>
+		       	<td th:text="${list.modifiedTime}"></td>
     		</tr>
 		</table>
 	</div>
 	<div class="orderdesc-table displayClass">
-		<table>
-			<tr>
-		        <td>-</td>
-		        <td>id</td>
-		        <td>order_id</td>
-		        <td>name</td>
-		        <td>kind</td>
-		        <td>num</td>
-		        <td>weight</td>
-		        <td>bulk</td>
-		        <td>status</td>
-		        <td>created-time</td>
-		        <td>modified-time</td>
-    		</tr>
-			<tr>
-		        <td>
-		        	<input type="checkbox" />
-		       	</td>
-		        <td>1</td>
-		        <td>3305</td>
-		        <td>衣服</td>
-		        <td>8</td>
-		        <td>1</td>
-		        <td>220</td>
-		        <td>63</td>
-		        <td>8325727</td>
-		        <td>2019-08-26</td>
-		        <td>2019-08-26</td>
-    		</tr>
-			<tr>
-		        <td>
-		        	<input type="checkbox" />
-		       	</td>
-		        <td>1</td>
-		        <td>3305</td>
-		        <td>衣服</td>
-		        <td>8</td>
-		        <td>1</td>
-		        <td>220</td>
-		        <td>63</td>
-		        <td>8325727</td>
-		        <td>2019-08-26</td>
-		        <td>2019-08-26</td>
-    		</tr>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<td>-</td>
+					<td>商品id</td>
+					<td>商品名称</td>
+					<td>商品类型</td>
+					<td>商品数量</td>
+					<td>商品重量</td>
+					<td>商品体积</td>
+					<td>status</td>
+					<td>商品创建时间</td>
+					<td>商品修改时间</td>
+				</tr>
+			</thead>
+			<tbody id="tbodyId">
+				<tr>
+					<td colspan="7">数据加载中...</td>
+				</tr>
+			</tbody>
 		</table>
+	</div>
+	<div id="pageId">
+	
 	</div>
 </div>
 <script src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	/* $("#checkAll").selectCheck(); */
-	
-	$('#storage').click(function(){
-		$('.switch span').removeClass('active');
-		$(this).addClass('active');
-		
-		$(this).parents('.switch').siblings(".storage-table").removeClass("displayClass");
-		$(this).parents('.switch').siblings(".orderdesc-table").addClass("displayClass");
-		
-		
-	})
-	$('#orderdesc').click(function(){
-		$('.switch span').removeClass('active');
-		$(this).addClass('active');
-		
-		$(this).parents('.switch').siblings(".orderdesc-table").removeClass("displayClass");
-		$(this).parents('.switch').siblings(".storage-table").addClass("displayClass");
-	})
+	$(function() {
+		$("#pageId").load("doPageUI", function() {
+			doGetObjects();
+		});
+		$(".ware-nav").on("click", ".outBtn", doOutBills)
+		.on("click",".putBtn", doInBills);
+	});
+	//页面加载完成异步加载当前页数据
+	function doGetObjects() {
+		var url = "orderDesc/findOrderDescByPage";
+		var pageCurrent = $("#pageId").data("pageCurrent");
+		if (!pageCurrent)
+			pageCurrent = 1;
+		var params = {
+			"pageCurrent" : pageCurrent
+		};
+		console.log(params);
+		$.getJSON(url, params, function(result) {
+			console.log(result);
+			doHandleResponseResult(result);
+		});
+	}
+	function doHandleResponseResult(result) {
+		if (result.state == 1) {
+			doSetTableBodyRows(result.data.records);
+			doSetPagination(result.data);
+		} else {
+			alert(result.message);
+		}
+	}
+	//通过服务端返回的数据初始化页面
+	function doSetTableBodyRows(data) {
+		//1.获取tbody对象，并清空内容
+		var tBody = $("#tbodyId");
+		tBody.empty();
+		//2.迭代data内容将数据追加到tbody中
+		for ( var i in data) {
+			var tr = $("<tr></tr>");
+			tr.data("rowData", data[i]);
+			var tds = doCreateTds(data[i]);
+			tr.append(tds);
+			tBody.append(tr);
+		}
+	}
+	function doCreateTds(row) {
+		console.log(row);
+		var tds = "<td><input type='checkbox' name='checkboxId' value='"+row.id+"'></td>"
+				+ "<td>"+ row.id+ "</td>"
+				+ "<td>"+ row.name+ "</td>"
+				+ "<td>"+ row.kind+ "</td>"
+				+ "<td>"+ row.num+ "</td>"
+				+ "<td>"+ row.weight+ "</td>"
+				+ "<td>"+ row.bulk+ "</td>"
+				+ "<td>"+ row.status+ "</td>"
+				+ "<td>"+ new Date(row.createdTime).toLocaleString()+ "</td>"
+				+ "<td>"+ new Date(row.modifiedTime).toLocaleString() + "</td>";
+		return tds;
+	}
+
+	function doOutBills() {
+		var storageId = $("input[type='radio']:checked").val();
+		var outPlace = $("#input-box").val();
+		if(!outPlace){
+			alert("请输入出库地");
+			return;
+		}
+		console.log("storageId:" + storageId);
+		console.log("outPlace:" + outPlace);
+		doSelectObjects(storageId,outPlace);
+	}
+
+	function doInBills() {
+		var storageId = $("input[type='radio']:checked").val();
+		var inputPlace = $("#input-box").val();
+		if(!inputPlace){
+			alert("请输入入库地");
+			return;
+		}
+		console.log("storageId:" + storageId);
+		console.log("inputPlace:" + inputPlace);
+		doSelectObjects(storageId,inputPlace);
+	}
+	//删除以后修改当前页码值
+	function doSetPageCurrent() {
+		var pageCount = $("#pageId").data("pageCount");
+		var pageCurrent = $("#pageId").data("pageCurrent");
+		var checked = $("#checkAll").prop("checked");
+		if (pageCurrent == pageCount && checked && pageCurrent > 1) {
+			pageCurrent--;
+			$("#pageId").data("pageCurrent", pageCurrent);
+		}
+	}
+	//执行日志删除操作
+	function doSelectObjects(storageId,place) {
+		var params = {"id":storageId,"place":place}
+		//1.获取选中的记录id
+		var idArray = doGetCheckedIds();
+		if (idArray.length == 0) {
+			alert("请先选择");
+			return;
+		}
+		console.log("idArray", idArray)
+		//3.异步执行删除操作
+		//3.1 params
+		params.ids = idArray.toString();
+		//3.2 url
+		var url = "rep/doSelectObjects";
+		//3.3 request (发送post请求)
+		$.post(url, params, function(result) {
+			if (result.state == 1) {
+				alert(result.message);
+				doSetPageCurrent();
+			} else {
+				alert(result.message);
+			}
+		})
+	}
+	//获取复选框的id
+	function doGetCheckedIds() {
+		//1.定义一个数组
+		var array = [];
+		//1.获取tbody中类型为checkbox的input元素
+		$(".orderdesc-table input[type='checkbox']")
+		//2.迭代这些checkbox元素
+		.each(function() {
+			//3.判定此元素是否被选中
+			//prop函数是用于获取元素中某个属性的值
+			if ($(this).prop("checked")) {
+				//4.将选中的值存储到数组
+				array.push($(this).val());
+			}
+		});
+		//5.返回数组
+		return array;
+	}
+	$('#storage').click(
+			function() {
+				$('.switch span').removeClass('active');
+				$(this).addClass('active');
+
+				$(this).parents('.switch').siblings(".storage-table")
+						.removeClass("displayClass");
+				$(this).parents('.switch').siblings(".orderdesc-table")
+						.addClass("displayClass");
+			})
+	$('#orderdesc').click(
+			function() {
+				$('.switch span').removeClass('active');
+				$(this).addClass('active');
+
+				$(this).parents('.switch').siblings(".orderdesc-table")
+						.removeClass("displayClass");
+				$(this).parents('.switch').siblings(".storage-table").addClass(
+						"displayClass");
+			})
 </script>

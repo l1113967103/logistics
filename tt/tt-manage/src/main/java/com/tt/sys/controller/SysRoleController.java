@@ -16,10 +16,6 @@ public class SysRoleController {
 	 @Autowired
 	 private SysRoleService sysRoleService;
 	 
-	 @GetMapping("doRoleListUI")
-	 public String doRoleListUI() {
-		 return "sys/role_list";
-	 }
 	 @GetMapping("doRoleEditUI")
 	 public String doRoleEeditUI() {
 		 return "sys/role_edit";
@@ -67,6 +63,4 @@ public class SysRoleController {
 		 sysRoleService.findPageObjects(name,
 				 pageCurrent));
 	 }
-	 
-	 
 }

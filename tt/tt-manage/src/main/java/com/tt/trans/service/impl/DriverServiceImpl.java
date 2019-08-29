@@ -29,7 +29,7 @@ public class DriverServiceImpl implements DriverService{
 		if(null==username||"".equals(username)) {
 			count = driverMapper.selectCount(null);//查询所有司机人数
 			if(count==0)
-				throw new RuntimeException("没有司机信息");
+				throw new ServiceException("没有司机信息");
 			records = driverMapper.selectList(null);
 		}else {
 			queryWrapper.like("name", username);
@@ -56,25 +56,43 @@ public class DriverServiceImpl implements DriverService{
 	@Override
 	public int addDriver(Driver driver) {
 		if(null==driver||"".equals(driver.getName()))
-			throw new RuntimeException("请填写修改司机信息");
+			throw new ServiceException("请填写新增司机信息");
 		driver.setStatus(0)
 		.setCreatedTime(new Date())
 		.setModifiedTime(driver.getCreatedTime());
 		int rows = driverMapper.insert(driver);
 		if(rows==0)
-			throw new RuntimeException("修改司机信息失败");
+			throw new ServiceException("新增司机信息失败");
 		return rows;
 	}
 
 	@Override
 	public int updateDriver(Driver driver) {
 		if(driver==null||"".equals(driver.getName()))
-			throw new RuntimeException("请填写新增司机信息");
-		driver.setModifiedTime(new Date());
+			throw new ServiceException("请填写修改司机信息");
+		driver.setName(driver.getName()).setModifiedTime(new Date());
 		int rows = driverMapper.updateById(driver);
 		if(rows==0)
-			throw new RuntimeException("添加司机信息失败");
+			throw new ServiceException("修改司机信息失败");
 		return rows;
+	}
+
+	@Override
+	public Driver findObjectById(Integer id) {
+		Driver driver = driverMapper.selectById(id);
+		if(driver==null)
+			throw new ServiceException("该司机不存在，系统出现错误");
+		return driver;
+	}
+	//查询所有司机信息，只要id，姓名，状态
+	@Override
+	public List<Driver> findAllDriver() {
+		QueryWrapper<Driver> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("status", 0);
+		List<Driver> driverList = driverMapper.selectList(queryWrapper);
+		if(driverList==null||driverList.size()==0)
+			throw new ServiceException("没有空闲的司机");
+		return driverList;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.tt.rep.service;
 
+import java.util.List;
+
 import com.tt.common.vo.PageObject;
 import com.tt.pojo.OrderDesc;
 import com.tt.pojo.Outbills;
@@ -16,5 +18,7 @@ public interface OutbillsService {
 	int delOutbills(Integer... ids);
 	/**修改入库单*/
 	int updateOutbills(Outbills outbills);
+	/**查询outbills的id,用于生成运输单*/
+	List<Outbills> findOutbillsId();
 
 }

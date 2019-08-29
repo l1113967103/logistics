@@ -40,5 +40,11 @@ public class OrderDescServiceImpl implements OrderDescService{
 			throw new ServiceException("记录可能已经不存在");
 		return rows;
 	}
+	//为运输单
+	@Override
+	public List<OrderDesc> findAllOrderDesc() {
+		List<OrderDesc> orderDescList = orderDescMapper.selectList(null);
+		return orderDescList;
+	}
 
 }

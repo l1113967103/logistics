@@ -19,5 +19,4 @@ public class Storage extends BasePojo{
 	private Integer id;//仓库id
 	private String name;//仓库姓名
 	private String addr;//仓库地址
-	private String tel;//仓库电话
 }

@@ -5,4 +5,11 @@ server:
     #view:
       #prefix: /WEB-INF/
       #suffix: .html
-spring:  resources:    static-locations: classpath:/templates/  
+spring:  resources:    static-locations: classpath:/templates/#引入dubbo的配置
+#dubbo:
+  #scan:
+    #basePackages: com.jt
+  #application:
+    #name: consumer-web
+  #registry:
+    #address: zookeeper://192.168.44.4:2181?backup=192.168.44.4:2182,192.168.44.4:2183

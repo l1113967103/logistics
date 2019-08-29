@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-@TableName("sys_rsoles")
+@TableName("sys_roles")
 public class SysRole extends BaseEntity{
 	@TableId(type = IdType.AUTO)
 	private Integer id;

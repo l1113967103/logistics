@@ -1,109 +1,273 @@
 <div class="trans-orders-box">
 	<div class="choice-box">
 		<!-- 出库选择 -->
-		<select  class="outbills-sel-box">
-	        <option>选择出库地点</option>
-	        <option value="1">南方</option>
-	        <option value="2">北方仓库</option>
-	        <option value="3">东方仓库</option>
-	        <option value="4">天水仓库</option>
-    	</select>
-    	<!-- 司机选择 -->
-		<select  class="driver-sel-box">
-	        <option>选择运输司机</option>
-	        <option value="1">李文斌</option>
-	        <option value="3">沙鑫熠</option>
-	        <option value="2">张鑫</option>
-	        <option value="4">张韦</option>
-	        <option value="5">陕文辉</option>
-    	</select>
-    	<!-- 车辆选择 -->
-		<select  class="vehicle-sel-box">
-	        <option>选择运输车辆</option>
-	        <option value="1">反对法</option>
-	        <option value="2">范德萨</option>
-	        <option value="3">大飒飒的</option>
-	        <option value="4">里的</option>
-	        <option value="6">大王</option>
-	        <option value="7">达数万</option>
-    	</select>
-    	<input type="button" id="putBtn" class="orderBtn" value="生成订单">
+		<select class="outbills-sel-box">
+			<option hidden="true">选择出库单</option>
+			<!-- <option value="1">宁夏</option> -->
+		</select>
+		<!-- 司机选择 -->
+		<select class="driver-sel-box">
+			<option hidden="true">选择运输司机</option>
+			<!-- <option value="1">李文斌</option> -->
+		</select>
+		<!-- 车辆选择 -->
+		<select class="vehicle-sel-box">
+			<option hidden="true">选择运输车辆</option>
+			<!-- <option value="1">反对法</option> -->
+		</select> <input type="button" id="putBtn" class="orderBtn" value="生成订单">
 	</div>
 	<div class="order-box">
-		
 
-			<span><h2>运输单</h2></span>
-			<table>
-				<tr>
-			        <td class="theadClass">出库地点</td>
-			        <td class="theadClass">运输司机</td>
-			        <td class="theadClass">运输车辆</td>
-			        <td class="theadClass">生成状态</td>
-	    		</tr>
-				<tr>
-			        <td>东方仓库</td>
-			        <td>李文斌</td>
-			        <td>里的</td>
-			        <td>成功</td>
-	    		</tr>
-				<tr>
-			        <td>北方仓库</td>
-			        <td>张鑫</td>
-			        <td>反对法</td>
-			        <td>成功</td>
-	    		</tr>
-			</table>
 
+		<span><h2>运输单</h2></span>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+				<td class="theadClass">运输单号</td>
+				<td class="theadClass">运输司机</td>
+				<td class="theadClass">运输车辆</td>
+				<td class="theadClass">出发地点</td>
+				<td class="theadClass">目的地点</td>
+				<td class="theadClass">运输状态</td>
+				<td class="theadClass" style="width:250px;">创建时间</td>
+			</tr>
+			</thead>
+			<tbody id="tbodyId">
+				<tr id="trans-order-content">
+					<td colspan="7">数据加载中...</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="pageId">
+	
+	</div>
 	</div>
 </div>
 <script type="text/javascript">
+	$(function() {
+		$("#trans-order-content").load("doPageUI",function(){
+			doGetTransObjects();
+	   });
+		$(".outbills-sel-box,.driver-sel-box,.vehicle-sel-box").click(function() {
+			var url;
+			var flag;
+			if($(this).hasClass("outbills-sel-box")){
+				url = "outbills/doFindAllOutbills";
+				flag = 0;
+			}else if($(this).hasClass("driver-sel-box")){
+				url = "driver/doFindAllDriver";
+				flag = 1;
+			}else if($(this).hasClass("vehicle-sel-box")){
+				url = "vehicle/doFindAllVehicle";
+				flag = 2;
+			}else{
+				alert("系统正在维修中，请稍候！！！");
+			}
+			console.log("传参前:"+url);
+			doGetObjects(url,flag);
+		})
+		
+	});
+	//页面加载完成异步加载当前页数据
+	   function doGetTransObjects(){
+		   var url="transOrder/doFindAllTransOrder";
+		   var pageCurrent=$("#pageId").data("pageCurrent");
+		   if(!pageCurrent)pageCurrent=1;
+		   var params={"pageCurrent":pageCurrent}
+		   console.log(params);
+		   $.getJSON(url,params,function(result){
+			   if(!result){
+				   alert("没有运输单");
+				   return;
+			   }
+			   //debugger
+			   console.log(result);
+			   doHandleTransResponseResult(result);
+		   });
+	   }
+	   function doHandleTransResponseResult(result){
+		   if(result.state==1){
+			   doSetTransTableBodyRows(result.data);
+			}else{
+			  alert("没有匹配的运输单,请重新生成运输单");
+//			  alert(result.message);
+		   }
+	   }
+	 //通过服务端返回的数据初始化页面
+	   function doSetTransTableBodyRows(data){
+		 //debugger;
+		  //1.获取tbody对象，并清空内容
+		  var tBody=$("#tbodyId");
+		  tBody.empty();
+		  //2.迭代data内容将数据追加到tbody中
+		  for(var i in data){
+			  var tr=$("<tr></tr>");
+			  tr.data("rowData",data[i]);
+			  var tds=doCreateTransTds(data[i]);
+			  tr.append(tds);
+			  tBody.append(tr);
+		  }
+	   }
+	   function doCreateTransTds(row){
+		   console.log(row);
+		   var tds="<td>"+row.transOrderId+"</td>"+
+		     "<td>"+row.driverName+"</td>"+
+		     "<td>"+row.vehicleName+"</td>"+
+		     "<td>"+row.outPlace+"</td>"+
+		     "<td>"+row.destPlace+"</td>"+
+		     "<td>"+row.status+"</td>"+
+		     "<td style='width:250px;'>"+fmtDate(row.createdTime)+"</td>";
+		     /* "<td>"+new Date(row.createdTime).toLocaleString()+"</td>" */
+	       return tds;
+	   }
+	//格式化日期
+	function fmtDate(time){
+    var date=new Date();
+    var data = new Date(time);
+    var year = data.getFullYear();  //获取年
+    var month = data.getMonth() + 1;    //获取月
+    var day = data.getDate(); //获取日
+    var hours = data.getHours();
+    var minutes = data.getMinutes();
+    /* if (date.getFullYear()==year&&date.getMonth() + 1==month){
+        if (date.getDate()==day){
+            time = "今天" + " " + hours + ":" + minutes;
+            return time;
+        }
+        if ((parseInt(date.getDate())-1)==day){
+            time = "昨天" + " " + hours + ":" + minutes;
+            return time;
+        }
+    } */
+	    time = year + "年" + month + "月" + day + "日" + " " + hours + ":" + minutes;
+	    return time;
+	}
+	   
+	function doGetObjects(url, flag) {
+		/* alert("传参后:"+url); */
+		/* var url = "storage/doFindPageObjects"; */
+		var selectFlag;
+		switch (flag) {
+		case 0:
+			$.getJSON(url, function(result) {
+				console.log(result);
+				selectFlag = 0;
+				doHandleResponseResult(result,selectFlag);
+			});
+			break;
+		case 1:
+			$.getJSON(url, function(result) {
+				console.log(result);
+				selectFlag = 1;
+				doHandleResponseResult(result,selectFlag);
+			});
+			break;
+		case 2:
+			$.getJSON(url, function(result) {
+				console.log(result);
+				selectFlag = 2;
+				doHandleResponseResult(result,selectFlag);
+			});
+			break;
+		}
+	}
+	function doHandleResponseResult(result,flag) {
+		if (result.state == 1) {
+			doSetTableBodyRows(result.data,flag);
+			/* doSetPagination(result.data); */
+		} else {
+			alert(result.message);
+		}
+	}
+	//通过服务端返回的数据初始化页面
+	function doSetTableBodyRows(data,flag) {
+		//1.获取tSelect对象，并清空内容
+		
+		//tSelect.empty();
+		//debugger;
+		//alert(flag);
+		switch (flag) {
+		case 0:
+			var tSelect=$(".outbills-sel-box");
+			tSelect.empty();
+			//2.迭代data内容将数据追加到tbody中
+			for ( var i in data) {
+				var tOptions = doCreateTds1(data[i]);
+				tSelect.append(tOptions);
+			}
+			break;
+		case 1:
+			var tSelect=$(".driver-sel-box");
+			tSelect.empty();
+			//2.迭代data内容将数据追加到tbody中
+			for ( var i in data) {
+				var tOptions = doCreateTds2(data[i]);
+				tSelect.append(tOptions);
+			}
+			break;
+		case 2:
+			var tSelect=$(".vehicle-sel-box");
+			tSelect.empty();
+			//2.迭代data内容将数据追加到tbody中
+			for ( var i in data) {
+				//alert("查看data循环次数:"+i);
+				var tOptions = doCreateTds3(data[i]);
+				tSelect.append(tOptions);
+			}
+			break;
+		}
+	}
+	function doCreateTds1(row) {
+		console.log(row);
+		var tOptions = "<option value='"+row.id+"'>出库单:"+row.id+"</option>";
+		return tOptions;
+	}
+	function doCreateTds2(row) {
+		console.log(row);
+		var tOptions = "<option value='"+row.id+"'>司机:"+row.name+"</option>";
+		return tOptions;
+	}
+	function doCreateTds3(row) {
+		console.log(row);
+		var tOptions = "<option value='"+row.id+"'>车辆:"+row.name +",类型:"+row.type+"</option>";
+		return tOptions;
+	}
 	/* 获得table标签为插入订单做准备 */
 	var tableLab = $(".order-box table");
-	
-	
-	
+
 	/* 增加点击事件 */
-	$(".orderBtn").click(function(){
-		var url = "trans/orderRequest";
-		/* 获取select中选中的option的值 */
-		var outSel=$(".outbills-sel-box").find("option:selected").text();
-		var driverSel=$(".driver-sel-box").find("option:selected").text();
-		var vehicleSel=$(".vehicle-sel-box").find("option:selected").text();
-		
-		$.post(url,
-			{
-				outVal:outSel,
-				driverVal:driverSel,
-				vehicleVal:vehicleSel
-			},
-			function(data){
-	        	if(parseInt(data.status)==1){
-	        		/* 生成的订单内容 */
-	        		var orderContent = $("<tr><td>"
-	        				+data.outVal+
-	        				"</td><td>"
-	        				+data.driverVal+
-	        				"</td><td>"
-	        				+data.vehicleVal+
-	        				"</td><td>创建成功</td></tr>");
-	        		tableLab.append(orderContent);
-				}else{
-					/* 生成的订单内容 */
-					var orderContent = $("<tr><td>"
-							+data.outVal+
-							"</td><td>"
-							+data.driverVal+
-							"</td><td>"
-							+data.vehicleVal+
-							"</td><td>创建失败</td></tr>");
-					tableLab.append(orderContent);
-				}
-        	});
-});
-	
-	
-	
-	
+	$(".orderBtn").click(
+			function() {
+				var url = "transOrder/orderRequest";
+				/* 获取select中选中的option的值 */
+				var outSel = $(".outbills-sel-box").find("option:selected")
+						.text();
+				var driverSel = $(".driver-sel-box").find("option:selected")
+						.text();
+				var vehicleSel = $(".vehicle-sel-box").find("option:selected")
+						.text();
+
+				$.post(url, {
+					outVal : outSel,
+					driverVal : driverSel,
+					vehicleVal : vehicleSel
+				}, function(data) {
+					if (parseInt(data.status) == 1) {
+						/* 生成的订单内容 */
+						var orderContent = $("<tr><td>" + data.outVal
+								+ "</td><td>" + data.driverVal + "</td><td>"
+								+ data.vehicleVal + "</td><td>创建成功</td></tr>");
+						tableLab.append(orderContent);
+					} else {
+						/* 生成的订单内容 */
+						var orderContent = $("<tr><td>" + data.outVal
+								+ "</td><td>" + data.driverVal + "</td><td>"
+								+ data.vehicleVal + "</td><td>创建失败</td></tr>");
+						tableLab.append(orderContent);
+					}
+				});
+			});
 </script>
 
 
